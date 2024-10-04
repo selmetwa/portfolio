@@ -1,0 +1,198 @@
+<dialog class='modal'>
+    <header class='modal-header'>
+        <h2>Theme</h2>
+        <button class='close-modal'>Close</button>
+    </header>
+    <section class='toggles'>
+        <div class='hue-wrapper'>
+            <label>Update Hue</label>
+            <input
+                type='range'
+                value='250'
+                min='0'
+                max='260'
+                class='brand-hue-input'
+                aria-label='hue-slider'
+                tabindex='0'
+                role='slider'
+            />
+        </div>
+        <form class='toggle-theme'>
+            <label class='radio-wrapper'>
+                <input
+                    checked
+                    type='radio'
+                    id='light'
+                    name='theme'
+                    value='light'
+                    class='radio-input'
+                    aria-label='radio-button-light-theme'
+                    tabindex='0'
+                />
+                <span>Light</span>
+            </label>
+            <label class='radio-wrapper'>
+                <input
+                    type='radio'
+                    id='dim'
+                    name='theme'
+                    value='dim'
+                    class='radio-input'
+                    aria-label='radio-button-dim-theme'
+                    tabindex='0'
+                />
+                <span>Dusk</span>
+            </label>
+        </form>
+    </section>
+</dialog>
+
+<style>
+    dialog {
+        border: none;
+        font-family: var(--font-main);
+        background-color: var(--tile4);
+        box-shadow: var(--tile-shadow);
+        position: fixed;
+        width: min(100%, 500px);
+        height: fit-content;
+        border-radius: .5rem;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 9999;
+    }
+
+    .modal-header {
+        border-bottom: 1px solid var(--tile6);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 0.5rem;
+        > h2 {
+            color: var(--text1);
+            font-size: 1.5rem;
+        }
+    }
+
+    .close-modal {
+        background-color: var(--tile5);
+        outline: none;
+        border: 1px solid var(--tile6);
+        padding: 8px;
+        font-size: 1rem;
+        color: var(--text1);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        font-weight: 500;
+        &:hover {
+          background-color: var(--tile6);
+      }
+    }
+
+    dialog::backdrop {
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .toggles {
+        margin-top: 2rem;
+    }
+
+    .hue-wrapper {
+        display: flex;
+        flex-direction: column;
+
+        > label {
+            color: var(--text1);
+            font-size: 1rem;
+        }
+    }
+    .toggle-theme {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .radio-wrapper {
+        background-color: var(--tile5);
+        border-radius: 6px;
+        font-family: var(--font-main);
+        padding: 0.5rem;
+        cursor: pointer;
+        color: var(--text1);
+    }
+</style>
+<script>
+    const root = document.documentElement
+    const doc = document.firstElementChild
+
+    const hueInput = document.querySelector('.brand-hue-input')
+    hueInput.addEventListener('input', (e) => {
+
+        localStorage.setItem(
+            '--brand-hue',
+            (e.target as HTMLInputElement).value
+        )
+        root.style.setProperty(
+            '--brand-hue',
+            (e.target as HTMLInputElement).value
+        )
+
+        const event = new Event('local-storage-update');
+        window.dispatchEvent(event);
+    })
+
+    hueInput.addEventListener('onkeydown', (e) => {
+
+        localStorage.setItem(
+            '--brand-hue',
+            (e.target as HTMLInputElement).value
+        )
+        root.style.setProperty(
+            '--brand-hue',
+            (e.target as HTMLInputElement).value
+        )
+
+        const event = new Event('local-storage-update');
+        window.dispatchEvent(event);
+    })
+
+    const themeToggle = document.querySelector('.toggle-theme')
+    const radioButtons = Array.from(document.querySelectorAll('.radio-input'))
+    const slider = document.querySelector('.brand-hue-input') as HTMLInputElement
+
+    themeToggle.addEventListener('input', (e) => {
+        const val = (e.target as HTMLInputElement).value
+        localStorage.setItem(
+            'color-scheme',
+            (e.target as HTMLInputElement).value
+        )
+        doc.setAttribute('color-scheme', (e.target as HTMLInputElement).value)
+
+        const event = new Event('local-storage-update');
+        window.dispatchEvent(event);
+    })
+    const renderChecked = (scheme) => {
+        radioButtons.forEach((button) => {
+            const value = (button as HTMLInputElement).value
+
+            if (value === scheme) {
+                (button as HTMLInputElement).checked = true
+            }
+        })
+    }
+
+    if (localStorage.getItem('color-scheme')) {
+        const theme = localStorage.getItem('color-scheme')
+        doc.setAttribute('color-scheme', theme)
+        renderChecked(theme)
+    }
+
+    if (localStorage.getItem('--brand-hue')) {
+        const hue = localStorage.getItem('--brand-hue')
+        root.style.setProperty('--brand-hue', hue)
+        slider.value = hue
+    }
+</script>

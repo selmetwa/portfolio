@@ -1,0 +1,79 @@
+---
+  import Modal from "./Modal.astro"
+---
+<Modal></Modal>
+<nav class="navigation">
+  <ul class="navigation-list">
+    <li><a href="/">Home</a></li>
+    <li><a href="/writing">Writing</a></li>
+    <li class="open-modal-wrapper">
+      <button class="open-modal">Theme</button>
+    </li>
+  </ul>
+</nav>
+
+<style>
+  .navigation {
+    display: flex;
+    padding: 12px 32px;
+    font-family: var(--font-main);
+    background-color: var(--tile4);
+    border-bottom: 1px solid var(--tile6);
+
+    .navigation-list {
+      display: flex;
+      gap: 16px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+      width: 100%;
+
+      li {
+        a {
+          color: var(--text2);
+          font-size: 1.25rem;
+          transition: color 0.3s;
+          &:hover {
+            color: var(--text1);
+          }
+        }
+      }
+    }
+
+    .open-modal-wrapper {
+      margin-left: auto;
+
+      .open-modal {
+        background-color: var(--tile5);
+        outline: none;
+        border: 1px solid var(--tile6);
+        padding: 8px;
+        font-size: 1rem;
+        color: var(--text1);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        font-weight: 500;
+        &:hover {
+          background-color: var(--tile6);
+      }
+    }
+  }
+</style>
+
+<script>
+  const openModalBtn = document.querySelector('.open-modal');
+  const closeModalBtn = document.querySelector('.close-modal');
+  const modal = document.querySelector('.modal') as HTMLDialogElement;
+
+  // Open the modal when the button is clicked
+  openModalBtn.addEventListener('click', () => {
+    modal.showModal();
+  });
+
+  // Close the modal when the close button is clicked
+  closeModalBtn.addEventListener('click', () => {
+    modal.close();
+  });
+</script>

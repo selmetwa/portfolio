@@ -1,0 +1,40 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header.astro'
+---
+
+<Layout title='Writing'>
+  <Header
+    title='Writing'
+    description='Here are some of my thoughts on various topics.'
+  ></Header>
+  <section class="wrapper">
+    <ul>
+      <li>
+        <a href="/writing/writing-arabic-in-english">Writing Arabic in English</a>
+      </li>
+    </ul>
+  </section>
+</Layout>
+
+<style>
+  .wrapper {
+    padding: 12px 32px;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 8px;
+  }
+  a {
+    color: var(--text2);
+    font-family: var(--font-main);
+    text-decoration: none;
+    font-size: 1.5rem;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
