@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Header from '../../components/Header.astro'
+---
+
+<Layout title='About'>
+  <Header
+    title='About Me'
+    description='Software engineer specialized in web technologies, with a focus on front-end development.'
+  >
+    <p>In my free time I enjoy</p>
+    <ul>
+      <li>- Playing, watching, and reading about soccer</li>
+      <li>- Playing chess</li>
+      <li>- Travelling</li>
+      <li>- Studying Arabic</li>
+      <li>- Practicing my Judo</li>
+    </ul>
+</Header>
+  <section class="wrapper">
+    <h2>Contact</h2>
+    <p>
+      You can reach me via email at <code>selmetwa@gmail.com</code>
+    </p>
+  </section>
+</Layout>
+
+<style>
+  .wrapper {
+    padding: 4px 32px;
+    font-family: var(--font-main);
+    > h2 {
+      font-size: 2rem;
+      color: var(--text2);
+      font-weight: 600;
+    }
+
+    > p {
+      margin-top: 8px;
+      font-size: 1.35rem;
+      color: var(--text2);
+    }
+  }
+  p {
+    margin-top: 8px;
+    font-size: 1.35rem;
+    color: var(--text2);
+  }
+  ul {
+    list-style-type: none;
+    margin-top: 6px;
+    padding: 0;
+
+    > li {
+      font-size: 1.125rem;
+      color: var(--text2);
+    }
+  }
+  li {
+    margin-bottom: 8px;
+  }
+  a {
+    color: var(--text2);
+    font-family: var(--font-main);
+    text-decoration: none;
+    font-size: 1.5rem;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

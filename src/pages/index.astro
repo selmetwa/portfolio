@@ -7,13 +7,288 @@ import Header from '../components/Header.astro'
 <Layout title='Welcome to Astro.'>
   <Header
     title='Sherif Elmetwally'
-    description='I’m a software engineer specialized in web technologies.'
+    description='Software engineer specialized in web technologies.'
   >
+  <ul class="links-list">
+    <li>
+      <a href="https://github.com/selmetwa" target="Github" class="link">Github</a>
+    </li>
+    <li>
+      <a href="https://www.linkedin.com/in/selmetwa/" target="Github" class="link">LinkedIn</a>
+    </li>
+  </ul>
+
   </Header>
 
   <section>
     <h2>Projects</h2>
+    <ul>
+      <li>
+        <a href="https://parallel-arabic.com/about" target="_blank">Parallel Arabic</a>
+        <details>
+          <summary>Language learning tool for Egyptian Arabic.</summary>
+          <p>
+            Fully self-contained learning environment without the need for outside resources.
+          </p>
+          <p>
+            Currently has hundreds of monthly users, and a handful of paid subscribers.
+          </p>
+          <p>
+            Built with Sveltekit, Sqlite, Stripe, Open AI, and deployed with Docker on Fly.io
+          </p>
+          <a href="https://github.com/selmetwa/parallel-arabic" target="_blank">View on Github</a>
+        </details>
+      </li>
+      <li>
+        <a href="https://huntergather.website/about" target="_blank">Hunter Gather</a>
+        <details>
+          <summary>Visual bookmarking site for twigs and berries I find around the web.</summary>
+          <p>
+            Built with Sveltekit, Supabase, Puppeteer, Tailwindcss, and deployed on Vercel
+          </p>
+          <a href="https://github.com/selmetwa/HunterGather" target="_blank">View on Github</a>
+        </details>
+      </li>
+      <li>
+        <a href="https://selmetwa.github.io/blunder-watching/" target="_blank">Blunder Watching</a>
+        <details>
+          <summary>Chrome extension designed to aid chess players in evaluating their positions on the board. </summary>
+          <p>
+            Built using Typescript, and launched on the Chrome Web Store
+          </p>
+          <a href="https://github.com/selmetwa/blunder-watching/tree/main" target="_blank">View on Github</a>
+        </details>
+      </li>
+      <li>
+        <a href="https://under-garden.vercel.app/" target="_blank">Under Garden</a>
+        <details>
+          <summary>Cellular automata browser game where materials, plants, and animals interact in an underground world.</summary>
+          <p>
+            Built with Rust, WASM, WebGL
+          </p>
+          <a href="https://github.com/selmetwa/under-garden" target="_blank">View on Github</a>
+        </details>
+      </li>
+      <li>
+        <a href="https://selmetwa.github.io/arabic-virtual-keyboard-demo/" target="_blank">Arabic Virtual Keyboard</a>
+        <details>
+          <summary>Virtual keyboard for writing Arabic in English... kinda. <a href="writing/writing-arabic-in-english">Read more here</a> </summary>
+          <p>
+            Phonetic keyboard for writing Arabic.
+          </p>
+          <p>
+            Built using Lit Web Components
+          </p>
+          <a href="writing/writing-arabic-in-english">Blog post here</a><br>
+          <a href="https://github.com/selmetwa/arabic-virtual-keyboard" target="_blank">View on Github</a>
+        </details>
+      </li>
+      <li>
+        <a href="https://selmetwa.github.io/we-are-number-1.github.io/" target="_blank">We're #1</a>
+        <details>
+          <summary>Data visualization comparing countries on 80+ metrics</summary>
+          <p>
+            Comparing countries using D3.js
+          </p>
+          <a href="https://github.com/selmetwa/we-are-number-1.github.io" target="_blank">View on Github</a>
+        </details>
+      </li>
+      <li>
+        <a href="https://egyptian-arabic-vocab-selmetwa.koyeb.app/" target="_blank">Arabic Vocabulary API</a>
+        <details>
+          <summary>Largest Arabic vocabulary API on the web.</summary>
+          <p>
+            Repository of over 4,000 words scraped from around the web using Puppeteer, API built with Hono.js and deployed on Koyeb
+          </p>
+          <a href="https://github.com/selmetwa/egyptian-arabic-vocab" target="_blank">View on Github</a>
+        </details>
+      </li>
+      <li>
+        <a href="https://sveltekit-vis.vercel.app/" target="_blank">Country Balls</a>
+        <details>
+          <summary>Turning countries into balls and comparing them on 14 metrics over the past 60 years</summary>
+          <p>
+            Data visualization using svelte and D3.js, with data pulled from the World Bank
+          </p>
+          <a href="https://github.com/selmetwa/country-balls" target="_blank">View on Github</a>
+        </details>
+      </li>
+      <li>
+        <a href="https://selmetwa.github.io/wealth.github.io/" target="_blank">Visualize the worlds wealth</a>
+        <details>
+          <summary>Data visualization splitting the worlds wealth by country, and region. <i>Circa 2020</i></summary>
+          <p>
+            Using D3.js
+          </p>
+          <a href="https://github.com/selmetwa/wealth.github.io" target="_blank">View on Github</a>
+        </details>
+      </li>
+      <li>
+        <a href="https://neoliberal.vercel.app/" target="_blank">Neoliberalism, a few charts</a>
+        <p>
+          Visualizing changes in the U.S. starting in the 70s/80s 
+        </p>
+      </li>
+      <li>
+        <a href="https://life-streams.fly.dev/" target="_blank">Life Streams</a>
+        <p>
+          Just a todo app written with Go and HTMX
+        </p>
+      </li>
+      <li>
+        <a href="https://typing-test-eight.vercel.app/" target="_blank">Typing Test</a>
+        <p>
+          Test your typing speed and accuracy
+        </p>
+      </li>
+    </ul>
   </section>
 </Layout>
+
+<style>
+  .links-list {
+    display: flex;
+    padding: 0;
+    gap: 0.5rem;
+    flex-direction: row;
+    font-family: var(--font-main);
+
+    > li {
+      width: fit-content;
+      padding: 0px;
+    }
+  }
+  .link {
+    color: var(--text2);
+    font-size: 1.25rem;
+  }
+  section {
+    padding: 12px 32px;
+    font-family: var(--font-main);
+
+    > h2 {
+      color: var(--text1);
+      font-size: 1.75rem;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 12px 0 36px;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 2rem;
+  
+    > li {
+      width: 100%;
+      color: var(--text2)
+      padding: 12px;
+
+      > a {
+        color: var(--text1);
+        font-size: 1.5rem;
+      }
+
+      > p {
+        color: var(--text2);
+        margin: 4px 0;
+        font-size: 1.25rem;
+        > a {
+          color: var(--green1)
+        }
+      }
+    }
+  }
+
+  details {
+    width: 100%;
+    /* min-width: 50rem; */
+    position: relative;
+    border-radius: 4px;
+    background-color: var(--tile3);
+    transition: .2s ease-in-out;
+    font-family: var(--font-main);
+
+  > p {
+    color: var(--text2);
+    margin: 4px 0;
+    font-size: 1.125rem;
+    padding-right: 20px;
+  }
+  
+  /* > :last-child {
+    margin-bottom: 1rem;
+  } */
+  
+  &::before {
+    width: 100%;
+    height: 100%;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: inherit;
+    opacity: .15;
+    box-shadow: var(--shadow);
+    pointer-events: none;
+    transition: opacity .2s;
+    z-index: -1;
+  }
+  
+  &[open] {
+    background-color: var(--tile4);
+    outline: 1px dashed var(--tile6);
+    padding: 8px;
+    &::before {
+      opacity: .6;
+    }
+  }
+}
+
+summary {
+  margin-top: 6px;
+  display: block;
+  color: var(--text2);
+  font-size: 1.25rem;
+  cursor: pointer;
+  max-width: 85%;
+  > a {
+    color: var(--green1)
+  }
+}
+summary::before,
+  summary::after {
+  width: 0.75em;
+  height: 2px;
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  content: '';
+  background-color: currentColor;
+  transform: translateY(-50%);
+  transition: transform 0.2s ease-in-out;
+}
+
+summary::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+[open] summary {
+  color: var(--text1);
+}
+[open] summary::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+  
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+li:not(:last-child) {
+  margin-bottom: 0.5em;
+}
+</style>
 
 

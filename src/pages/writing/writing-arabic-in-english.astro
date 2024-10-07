@@ -1,90 +1,64 @@
 ---
 import Layout from '../../layouts/Layout.astro'
 import Header from '../../components/Header.astro'
-
-const jsCode = `
-/**
- * Return corresponding english letter for arabic letter
- * @param {string} letter
- * @returns {string} 
- */
-export const convertLetterToArabic = (letter) => {
-  const letterObject = letters.find((obj) => obj.en === letter);
-  const arabicLetter = letterObject && letterObject.ar;
-  return arabicLetter;
-}
-`
-
-const keyboardSwapCode = `
-if (["CapsLock", "Shift"].includes(key)) {
-  // render the shifted keyboard
-  this.handleToggleButtonGroups(shifted_desktop_button_groups);
-}
-`
-
-const dots = `
-// switch to check what key was pressed
-switch (true) {
-  ...
-  case key === "'" // dot sprinkler
-
-  // letters that accept dots
-  if (['d', 'g', 's', 't', 'h', 'H'].includes(previousLetter)) {
-    // form our new letter
-    const newKey = previousLetter + "'";
-
-    // delete the previous dotless letter
-    const res = BackspaceFactory(key, state);
-
-    // again use our lookup function, but this time with the new letter
-    return LettersFactory(newKey, newState);
-  }
-}
-`
+import { Code } from 'astro:components'
 ---
 
 <Layout title='Writing Arabic in English'>
     <Header title='Writing Arabic in English' />
     <div class='wrapper'>
+        <h2>My journey in creating a phonetic Arabic keyboard</h2>
         <p class='text'>
-            First of all, what is a phonetic keyboard? A phonetic Arabic
-            keyboard allows users to type Arabic sounds using Latin characters
-            that closely resemble how they would pronounce them. This makes it
-            easier for beginners or casual users to engage with the language
-            without the steep learning curve of mastering an entirely different
-            keyboard layout.
+          A phonetic keyboard is a type of keyboard layout designed to make typing in a particular language easier by mapping characters or letters to sounds rather than their traditional positions on the keyboard.        </p>
+        <p class="text">
+          This makes it
+          easier for beginners or casual users to engage with the language
+          without the learning curve of mastering an entirely different
+          keyboard layout.
         </p>
         <p class='text'>
-            However there a few problems we have to solve to do this
+            However there a few problems we have to overcome when creating a phonetic Arabic keyboard.
         </p>
         <ul class='list'>
-            <li>Arabic is written from right to left</li>
-            <li>Arabic is a cursive script</li>
-            <li>
-                Arabic and English have a different number of letters, 28 vs 26
-                respectively.
-            </li>
-            <li>
-                Arabic contains sounds that don’t have direct equivalents in
-                English.
-            </li>
-            <li>Arabic uses diacritics to indicate short vowels</li>
-            <li>Arabic has emphatic letters</li>
+          <li><a href="#rtl">Arabic is written from right to left</a></li>
+          <li>
+            <a href="#cursive">Arabic is a cursive script</a>
+          </li>
+          <li>
+            <a href="#mapping">Connecting English letters to sounds in Arabic</a>
+          </li>
+          <li>
+            <a href="#other">Not all Arabic letters have an equivalent in English</a>
+          </li>
+          <li>
+            <a href="#hamza">Arabic has a special character called Hamza</a>
+          </li>
+          <li>
+            <a href="#diacritics">Arabic has diacritics to 
+              provide pronunciation hints
+            </a>
+          </li>
+          <li>
+            <a href="#implementation">Technical details</a>
+          </li>
         </ul>
 
-        <section class='section'>
+        <section class='section' id="rtl">
             <h2>Arabic is written from right to left</h2>
             <p class='text'>
-                Arabic is written from right to left, this actually wasn't a
-                problem as we could just use our old friend <code
-                    >direction: rtl;</code
-                > in CSS and call it a day.
+                This actually wasn't a
+                problem as we could just use our old friend
+<pre>
+<code>
+direction: rtl;
+</code>
+</pre>
             </p>
         </section>
-        <section>
+        <section class="section" id="cursive">
             <h2>Arabic is a cursive script</h2>
             <p class='text'>
-                Arabic is a cursive script, which means letters are connected to
+                This means letters are connected to
                 eachother and look different depending on their position in a
                 word.
             </p>
@@ -126,23 +100,24 @@ switch (true) {
                 > closely resembles the word for (book) <span
                     lang='ar'
                     class='arabic'>كِتَا<span class='highlight'>ب</span></span
-                >. This is because Arabic is a root based language, where words
-                are derived from a root of 3 or 4 letters. 
-                <a href="https://arabicforbeginners.com/topic/arabic-root-system-overview/" target="_blank">
-                  More on that here
+                >. This is because Arabic is a root based language, where the meaning is derived from a root of 3 or 4 letters.
+                <a
+                    href='https://arabicforbeginners.com/topic/arabic-root-system-overview/'
+                    target='_blank'
+                >
+                    More on that here
                 </a>
             </p>
-            <p class="text">
-              And don't mind the
-                marks around the word (book) we will get to that in a bit.
+            <p class='text'>
+                And don't mind the marks around the word (book) we will get to
+                that in a bit.
             </p>
         </section>
-        <section class='section'>
+        <section class='section' id="mapping">
             <h2>Mapping English to Arabic</h2>
             <p class='text'>
                 If we want a phonetic keyboard we need to map arabic letters to
-                the english keys in a way that makes sense for someone with an
-                english centric brain.
+                the english keys in a way that makes sense for someone that is used to typing in english.
             </p>
             <p class='text'>
                 So if someone types the letter <code>b</code>, we want to spit
@@ -248,34 +223,18 @@ switch (true) {
                 english letter to the arabic letter, and then write a simple
                 lookup function.
             </p>
-            <pre>
-<code>
-{JSON.stringify({
-  type: 'letter',
-  ar: 'ب',
-  en: 'b',
-  label: ['b'],
-  title: 'Ba',
-  shifted: 'ب',
-}
-, null, 2)}
-</code>
-</pre>
-            <pre>
-<code>
-  {jsCode}
-</code>
-</pre>
         </section>
-        <section class='section'>
+        <section class='section' id="other">
             <h2>What about the other 11 letters?</h2>
             <p class='text'>
                 I decided to break up these remaining 11 letters into two
                 categories, the first category are the letters that bear some
-                similarity to letters arabic letters that map to english
-                letters. For the sake of this article lets call these <b
-                    >"Emphatic"</b
-                > letters, of which there are five.
+                similarity to the simple letters we have already looked at.
+            </p>
+            <p class="text">
+              For the sake of this post lets call these <b
+              >"Emphatic"</b
+          > letters, of which there are five.
             </p>
             <p class='text'>
                 The second category are the letters that don't really bear any
@@ -325,8 +284,8 @@ switch (true) {
                 To me ح, ص, ض, ط, and ظ are similar-sh to ه, س, د, ت, and ز
                 respectively. Just with a little more umph.
             </p>
-            <p class='text'>What do you think?</p>
-            <ul>
+            <p class='text'>What do you think? (Click on the letters for audio)</p>
+            <ul class="list-row-wrapper">
                 <li class='list-row'>
                     <button value='haa' class='letter-button'>
                         <span class='arabic'>ح (haa)</span>
@@ -399,20 +358,6 @@ switch (true) {
                 or has pressed caps lock. And then swap between the two arrays
                 depending on the state of the keyboard.
             </p>
-            <pre>
-<code>
-{keyboardSwapCode}
-{JSON.stringify({
-  'type': 'letter',
-  'ar': 'ط',
-  'en': 'T',
-  'label': ['T'],
-  'title': 'Taa, does not have a corresponding sound in English',
-  'shifted': 'ت'
-}
-, null, 2)}
-</code>
-</pre>
             <p class='text'>
                 And then we can reuse our lookup function from before
             </p>
@@ -445,111 +390,487 @@ switch (true) {
                     </button>
                 </li>
                 <li>
-
-                <button value='ayn' class='letter-button'>
-                    <span class='arabic'>ع (ayn)</span>
-                </button>
+                    <button value='ayn' class='letter-button'>
+                        <span class='arabic'>ع (ayn)</span>
+                    </button>
                 </li>
                 <li>
-                  <button value='ghayn' class='letter-button'>
-                      <span class='arabic'>غ (ghayn)</span>
-                  </button>
-              </li>
+                    <button value='ghayn' class='letter-button'>
+                        <span class='arabic'>غ (ghayn)</span>
+                    </button>
+                </li>
             </ul>
-          <p class="text">
-            So yeah, these letters are a bit of a problem. So we have to get a bit creative.
-          </p>
-          <p class="text">
-            However if you notice. The shape of these letters look similar to ones we have already seen. Just with some dots sprinkled on top.
-          </p>
-          <ul>
-            <li class="list-row">
-              <button value="seen" class="button letter-button">
-                <span class="arabic">س (seen - s)</span>
-              </button>
-              <p>+ some dots gives us</p>
-              <button value="sheen" class="letter-button">
-                <span class="arabic">ش (sheen)</span>
-              </button>
-            </li>
-            <li class="list-row">
-              <button value="dal" class="button letter-button">
-                <span class="arabic">د (dal - d)</span>
-              </button>
-              <p>+ one dot gives us</p>
-              <button value="dhaa" class="letter-button">
-                <span class="arabic">ذ (dha)</span>
-              </button>
-            </li>
-            <li class="list-row">
-              <button value="ta" class="button letter-button">
-                <span class="arabic">ت (ta - t)</span>
-              </button>
-              <p>+ one dot gives us</p>
-              <button value="tha" class="letter-button">
-                <span class="arabic">ث (tha)</span>
-              </button>
-            </li>
-            <li class="list-row">
-              <button value="haa" class="button letter-button">
-                <span class="arabic">ح (haa - H)</span>
-              </button>
-              <p>+ one dot gives us</p>
-              <button value="khaa" class="letter-button">
-                <span class="arabic">خ (khaa)</span>
-              </button>
-            </li>
-            <i class="text">I ended up just using g for ayn. I dont really have a good reason but I needed a key</i>
-            <li class="list-row">
-              <button value="ayn" class="button letter-button">
-                <span class="arabic">ع (ayn - g)</span>
-              </button>
-              <p>+ one dot gives us</p>
-              <button value="ghayn" class="letter-button">
-                <span class="arabic">غ (ghayn)</span>
-              </button>
-            </li>
-          </ul>
-          <p class="text">So how can we sprinkle dots? Because we are quickly running out of keys</p>
-          <p class="text">
-            I landed on <code>'</code> as being our dot sprinkler. So <code>s'</code> would give us <span class="arabic">ش</span> (sheen).
-          </p>
-          <p><code>H'</code> would give us <span class="arabic">خ</span> <i>(remember capital H because this is emphatic)</i></p>
-          <p><code>t'</code> would give us <span class="arabic">ث</span> etc...</p>
-          <p class="text">I think you can see how were quickly coming up with our own little shorthand</p>
-          <p class="text">The code for this is pretty simple</p>
-          <pre>
-            <code>
-              {dots}
-            </code>
-          </pre>
-          <p class="text">
-            Okay thats a lot of reading, how about we take a break and do some writing using the keyboard below.
-          </p>
-          <p class="text">Why dont you try writing my name <b>Sherif</b> <code>s'ryf</code></p>
-          <p class="text">Or <b>house</b> -- <code>byt</code></p>
-          <p class="text">Or <b>dog</b> -- <code>klb</code></p>
-          <p class="text">
-            Or <b>I like to drink tea</b> -- <code>ana bHb as'rb s'ay</code>
+            <p class='text'>
+                So yeah, these letters are a bit of a problem. So we have to get
+                a bit creative.
+            </p>
+            <p class='text'>
+                However if you notice. The shape of these letters look similar
+                to ones we have already seen. Just with some dots sprinkled on
+                top.
+            </p>
             <ul>
-              <li><span class="arabic">أنا</span> (ana) = I</li>
-              <li><span class="arabic">بحب</span> (bahib) = like</li>
-              <li><span class="arabic">أشرب</span> (ashrab) = drink</li>
-              <li><span class="arabic">شاي</span> (shay) = tea</li>
+                <li class='list-row'>
+                    <button value='seen' class='button letter-button'>
+                        <span class='arabic'>س (seen - s)</span>
+                    </button>
+                    <p>+ some dots gives us</p>
+                    <button value='sheen' class='letter-button'>
+                        <span class='arabic'>ش (sheen)</span>
+                    </button>
+                </li>
+                <li class='list-row'>
+                    <button value='dal' class='button letter-button'>
+                        <span class='arabic'>د (dal - d)</span>
+                    </button>
+                    <p>+ one dot gives us</p>
+                    <button value='dhaa' class='letter-button'>
+                        <span class='arabic'>ذ (dha)</span>
+                    </button>
+                </li>
+                <li class='list-row'>
+                    <button value='ta' class='button letter-button'>
+                        <span class='arabic'>ت (ta - t)</span>
+                    </button>
+                    <p>+ one dot gives us</p>
+                    <button value='tha' class='letter-button'>
+                        <span class='arabic'>ث (tha)</span>
+                    </button>
+                </li>
+                <li class='list-row'>
+                    <button value='haa' class='button letter-button'>
+                        <span class='arabic'>ح (haa - H)</span>
+                    </button>
+                    <p>+ one dot gives us</p>
+                    <button value='khaa' class='letter-button'>
+                        <span class='arabic'>خ (khaa)</span>
+                    </button>
+                </li>
+                <i class='text'
+                    >I ended up just using g for ayn. I dont really have a good
+                    reason but I needed a key</i
+                >
+                <li class='list-row'>
+                    <button value='ayn' class='button letter-button'>
+                        <span class='arabic'>ع (ayn - g)</span>
+                    </button>
+                    <p>+ one dot gives us</p>
+                    <button value='ghayn' class='letter-button'>
+                        <span class='arabic'>غ (ghayn)</span>
+                    </button>
+                </li>
             </ul>
+            <p class='text'>
+                So how can we sprinkle dots? Because we are quickly running out
+                of keys
+            </p>
+            <p class='text'>
+                I landed on <code>'</code> as being our dot sprinkler. So <code
+                    >s'</code
+                > would give us <span class='arabic'>ش</span> (sheen).
+            </p>
+            <p>
+                <code>H'</code> would give us <span class='arabic'>خ</span>
+                <i>(remember capital H because this is emphatic)</i>
+            </p>
+            <p>
+                <code>t'</code> would give us <span class='arabic'>ث</span> etc...
+            </p>
+            <p class='text'>
+                I think you can see how we're quickly coming up with our own
+                little shorthand
+            </p>
+            <p class='text'>
+                Okay thats a lot of reading, how about we take a break and do
+                some writing using the keyboard below.
+            </p>
+            <p class='text'>
+                Why dont you try writing my name <b>Sherif</b>
+                <code>s'ryf</code>
+            </p>
+            <p class='text'>Or <b>house</b> -- <code>byt</code></p>
+            <p class='text'>Or <b>dog</b> -- <code>klb</code></p>
+            <p class='text'>
+                Or <b>I like to drink tea</b> -- <code>ana bHb as'rb s'ay</code>
+                <ul>
+                    <li><span class='arabic'>أنا</span> (ana) = I</li>
+                    <li><span class='arabic'>بحب</span> (bahib) = like</li>
+                    <li><span class='arabic'>أشرب</span> (ashrab) = drink</li>
+                    <li><span class='arabic'>شاي</span> (shay) = tea</li>
+                </ul>
+            </p>
+            <p class='text'>
+                PS. Notice the little mark above the first <span class='arabic'
+                    >ا</span
+                > in I, and drink? Thats <b>Hamza </b><span class='arabic'
+                    >ء</span
+                >. We will get to him in a bit.
+            </p>
+            <p class='text'>
+                PPS. Notice how the word for tea <span class='arabic'>شاي</span>
+                (shay) is somewhat similar to chai, or tea even.
+            </p>
+            <arabic-keyboard showEnglishValue='true' showShiftedValue='true'
+            ></arabic-keyboard>
+            <p class="text">
+              There we go, we are now able to write all 28 arabic letters, but there is still more to be done!
+            </p>
+        </section>
+        <section class='section' id="hamza">
+            <h2>Hamza <span class='diacritic'>ء</span></h2>
+            <p class='text'>
+                Hamza is the unofficial 29th letter of the arabic alphabet. It
+                is used to represent a glottal stop.
+            </p>
+            <p class='text'>
+                It can appear with three letters. <span class='diacritic'
+                    >ا</span
+                > (alif), <span class='diacritic'>و</span> (waw), and <span
+                    class='diacritic'>ي</span
+                > (ya).
+            </p>
+            <p class='text'>
+                Above or below alif it is written as <span class='diacritic'
+                    >أ</span
+                > or <span class='diacritic'>إ</span>
+            </p>
+            <p class='text'>
+                Above waw it is written as <span class='diacritic'>ؤ</span>
+            </p>
+            <p class='text'>
+                Above ya it is written as <span class='diacritic'>ئ</span>. This
+                version is often used at the middle or end of a word.
+            </p>
+            <p class='text'>
+                So how can we represent hamza in our keyboard? I decided on <code
+                    >-</code
+                > to represent hamza. And if you are adding hamza to a letter you
+                can simply type <code>--</code>
+            </p>
+            <p class='text'>
+                Since hamza can appear above or below Alif, <code>A--</code> will
+                give us <span class='diacritic'>أ</span> and <code>a--</code> will
+                give us <span class='diacritic'>إ</span>
+            </p>
+
+            <p class='text'>
+                Lets look at some examples shall we. Lets try typing on our
+                keyboard below.
+            </p>
+            <p class='text'>
+                - Why dont you try writing the name <b>Ahmed</b>
+                <code>A--Hmd</code>
+            </p>
+            <p class='text'>
+                - Or Ra'is <code>ry--ys</code> which means president
+            </p>
+            <p class='text'>
+                - or Izzay <code>a--zay</code> "How?"
+            </p>
+            <arabic-keyboard showEnglishValue='true' showShiftedValue='true'
+            ></arabic-keyboard>
+
+            <p class='text'>
+                So that's it, we are now Hamza compatible. Not the most
+                interesting feature, but a necessary one.
+            </p>
+        </section>
+        <section class='section' id="diacritics">
+            <h2>Diacritics</h2>
+            <p class='text'>
+                Remember those marks we saw earlier around <span
+                    class='diacritic'>كِتَاب</span
+                >. The things below the first letter and above the second
+                letter.
+            </p>
+            <p class="text">
+              Those are diacritics.
+            </p>
+            <p class='text'>
+                Arabic diacritics are marks that placed on or
+                around the letter than can define how the word can be
+                pronounced, therefore how they can be understood.
+            </p>
+            <p class='text'>
+                Arabic is a consonant based language, and short vowels are often
+                left out of written text. However they are important for
+                pronunciation and grammar. Sometimes they are used to
+                differentiate between words that are spelled the same but have
+                different meanings.
+            </p>
+            <h3>Lets look an example</h3>
+            <p class='text'>
+                <span class='diacritic'>كَتَب </span>
+                <span class='arabic'>(katab) - "He wrote."</span>
+            </p>
+            <p class='text'>
+                <span class='diacritic'>كُتُب </span><span class='arabic'
+                    >(kutub) - "Books."</span
+                >
+            </p>
+            <p class='text'>
+                To cut to the chase, we will be using <code>=</code> as our hotkey
+                for diacritics.
+            </p>
+            <p class='text'>
+                The diacritics we will implement are the following:
+            </p>
+            <div class='diacritic-wrapper'>
+                <h3>Fatha (short a)</h3>
+                <div class='row'>
+                    <div class='big-diacritic'>َ</div>
+                    <div>
+                        <p class='text'>
+                            This mark is written as a very tiny line above the
+                            letter. Fatḥah is what makes the sound pronounced as
+                            an extra (a) sound added to the word. You can
+                            consider the A in the word ‘car’ a Fatḥah.
+                        </p>
+                        <p class='text'>
+                            Since this mark is used to indicate a short "a", we
+                            can type <span class='arabic'>a=</span> to add a Fatḥah
+                            to the letter.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class='diacritic-wrapper'>
+                <h3>Kasrah (short i)</h3>
+                <div class='row'>
+                    <div class='big-diacritic'>ِ</div>
+                    <div>
+                        <p class='text'>
+                            This mark is written as a very tiny line below the
+                            letter. Kasrah is what makes the sound pronounced as
+                            an extra (i) sound added to the word. You can
+                            consider the I in the word ‘sit’ a Kasrah.
+                        </p>
+                        <p class='text'>
+                            Since this mark is used to indicate a short "i", we
+                            can type <span class='arabic'>i=</span> to add a Kasrah
+                            to the letter.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class='diacritic-wrapper'>
+                <h3>Dhammah (short u)</h3>
+                <div class='row'>
+                    <div class='big-diacritic'>ُ</div>
+                    <div>
+                        <p class='text'>
+                            This mark is written as a very tiny <i
+                                >I dont know</i
+                            > above the letter. Dhammah is what makes the sound pronounced
+                            as an extra (u) sound added to the word.
+                        </p>
+                        <span class='diacritic'>كُتُب </span><span
+                            class='arabic'
+                            >(kutub) - "Books." is a good example here</span
+                        >
+                        <p class='text'>
+                            Since this mark is used to indicate a short "u", we
+                            can type <span class='arabic'>u=</span> to add a Dhammah
+                            to the letter.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class='diacritic-wrapper'>
+                <h3>Sukun (de-emphasize)</h3>
+                <div class='row'>
+                    <div class='big-diacritic'>ْ</div>
+                    <div>
+                        <p class='text'>
+                            This mark is written as a very tiny circle above the
+                            letter. Sukun is what makes the sound pronounced as
+                            a stop. It is used to indicate that a letter is not
+                            followed by a vowel.
+                        </p>
+                        <p class='text'>
+                            We can type <span class='arabic'>h=</span> to add a Sukun
+                            to the letter. I'm not sure how I landed on h, but I
+                            did.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class='diacritic-wrapper'>
+                <h3>Shaddah (emphasize)</h3>
+                <div class='row'>
+                    <div class='big-diacritic'>ّ</div>
+                    <div>
+                        <p class='text'>
+                            This mark is written as a very tiny squiggle above
+                            the letter. Shaddah is what makes the sound
+                            pronounced as an extra emphasis on the letter. It is
+                            used to indicate that a letter is doubled.
+                        </p>
+                        <p class='text'>
+                            Since the name of this mark starts with the letter
+                            s, we can type <span class='arabic'>s=</span> to add
+                            a Shaddah to the letter.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <h3>Tanwin</h3>
+            <p class='text'>
+                He is written above the final letter of a word . It is
+                pronounced as the letter AN, IN, or UN added to a word, and
+                comes in three forms.
+            </p>
+            <div class='diacritic-wrapper'>
+                <h3>Tanwin (an)</h3>
+                <div class='row'>
+                    <div class='big-diacritic'>ً</div>
+                    <div>
+                        <p class='text'>
+                            Tanween is always added to the last letter of the
+                            word. In this case it adds an "an" sound to the
+                            word.
+                        </p>
+                        <p class='text'>
+                            If you notice it looks like two Fathas <span
+                                class='diacritic'>َ</span
+                            >, which gave us our short a sound
+                        </p>
+                        <p class='text'>
+                            Since this mark is used to indicate a short "an", we
+                            can type <span class='arabic'>an=</span> to add a Tanween
+                            to the letter.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class='diacritic-wrapper'>
+                <h3>Tanwin (in)</h3>
+                <div class='row'>
+                    <div class='big-diacritic'>ٍ</div>
+                    <div>
+                        <p class='text'>
+                            In this case it adds an "in" sound to the word.
+                        </p>
+                        <p class='text'>
+                            If you notice it looks like two Kasrahs <span
+                                class='diacritic'>ِ</span
+                            >, which gave us our short i sound
+                        </p>
+                        <p class='text'>
+                            Since this mark is used to indicate a short "in", we
+                            can type <span class='arabic'>in=</span> to add a Tanween
+                            to the letter.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class='diacritic-wrapper'>
+                <h3>Tanwin (un)</h3>
+                <div class='row'>
+                    <div class='big-diacritic'>ٌ</div>
+                    <div>
+                        <p class='text'>
+                            In this case it adds an "un" sound to the word.
+                        </p>
+                        <p class='text'>
+                            If you notice it sorta kinda looks like two
+                            Dhammahs, <span class='diacritic'>ُ</span> which gave
+                            us our short u sound
+                        </p>
+                        <p class='text'>
+                            Since this mark is used to indicate a short "un", we
+                            can type <span class='arabic'>un=</span> to add a Tanween
+                            to the letter.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <p class='text'>Lets take a look at some examples.</p>
+            <p class='text'>
+                The word for bag is Shanta, and is written as <span
+                    class='arabic'>شنطة</span
+                > (s'nTh') but without diacritics we lose some pronunciation hints.
+            </p>
+            <p class='text'>
+                Here it is with diacritics <span class='diacritic'>شَنْطَة</span
+                > (shanta)
+            </p>
+            <p class='text'>
+                Lets try typing it without diacritics first <code>s'nTh'</code>
+            </p>
+            <p class='text'>
+                And now with diacritics <code>s'a=nh=Th'</code>
+            </p>
+            <p class='text'>
+                If you press the audio button in the keyboard you can hear the
+                slight difference in pronunciation.
+            </p>
+            <p class='text'>
+                Lets write a longer sentence now. Lets try, I like tea with
+                milk.
+                <span class='arabic'> أَنَا بَحِبّ الشاي بِاللِّبَن </span> (ana
+                bahib al shay bil laban) <br />
+
+                We can write that on our keyboard with full diacritics as
+                <br />
+                <code> A--a=na=a ba=Hi=bs= als'ay bi=alla=s=ba=n </code>
+            </p>
+            <arabic-keyboard showEnglishValue='true' showShiftedValue='true'></arabic-keyboard>
+
+            <p class="text">
+              So there we go, we can now write arabic in english, kinda. Is it a good idea? Is it practical? I don't know. But it was fun to work on.
+            </p>
+        </section>
+
+        <section class="section" id="implementation">
+          <h2>Implementation</h2>
+          <p class="text">
+            The keyboard was built using web components for ease of portability. You can view the  <a href="https://github.com/selmetwa/arabic-virtual-keyboard" target="blank">source code here</a>
           </p>
           <p class="text">
-            PS. Notice the little mark above the first <span class="arabic">ا</span> in I, and drink? Thats <b>Hamza </b><span class="arabic">ء</span>. We will get to him in a bit.
-          </p>
-          <p class="text">
-            PPS. Notice how the word for tea <span class="arabic">شاي</span> (shay) is somewhat similar to chai, or tea even.
-          </p>
-          <arabic-keyboard showEnglishValue="true" showShiftedValue="true" > </arabic-keyboard> 
+            It can be easily added to any website by adding the following code to your html file.
+<pre>
+<Code code={`
+<script type="module" src="https://cdn.jsdelivr.net/npm/arabic-virtual-keyboard/+esm"></script>
+<arabic-keyboard></arabic-keyboard>
+`} lang="html">
+</pre>
+
+            Or you can install it via npm
+<pre>
+<Code code={`
+npm i arabic-virtual-keyboard
+`} lang="bash">
+</pre>
+</p>
+<p class="text">
+  You can read more about the project here
+  <a href="https://selmetwa.github.io/arabic-virtual-keyboard-demo/" target="_blank">Documentation</a>
+</p>
+<p class="text">
+  The keyboard is used throughout one of my personal projects. Parallel Arabic-- which is a language learning platform for Egyptian Arabic.
+  <a href="https://parallel-arabic.com/about" target="_blank">Check it out here</a>
+</p>
         </section>
     </div>
 </Layout>
 
 <style>
+
+  .list-row-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  li {
+    font-size: 1.25rem;
+    color: var(--text2);
+    transition: color 0.3s;
+
+    &:hover {
+      color: var(--text3);
+    }
+  }
     .wrapper {
         padding: 12px 32px;
         font-family: var(--font-main);
@@ -563,10 +884,11 @@ switch (true) {
     }
 
     code {
-        /* background-color: var(--tile4); */
+        background-color: var(--tile4);
         color: var(--text1);
-        font-size: 1.25rem;
-        padding: 4px;
+        font-size: 1rem;
+        padding: 8px;
+        text-wrap: wrap;
     }
     .section {
         margin: 24px 0;
@@ -579,9 +901,36 @@ switch (true) {
         font-size: 2rem;
     }
 
+    .diacritic {
+        font-size: 5rem;
+    }
+
+    .diacritic-wrapper {
+        padding: 12px;
+        border: 1px solid var(--tile5);
+        background-color: var(--tile4);
+        > h3 {
+            font-size: 3rem;
+        }
+        .row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    h3 {
+        font-size: 2rem;
+        padding: 12px 0 0 0;
+    }
+    .big-diacritic {
+        font-size: 15rem;
+        width: 500px;
+    }
     .grid {
         margin: 24px 0;
         display: grid;
+        gap: 24px;
         list-style: none;
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
@@ -600,15 +949,27 @@ switch (true) {
 
     .list-row {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         gap: 10px;
         white-space: nowrap;
         align-items: center;
+        border: 2px dotted var(--tile5);
     }
 
+    @media screen and (min-width: 768px) {
+        .list-row {
+          border: none;
+            flex-direction: row;
+        }
+    }
     a {
-      text-decoration: underline;
-      color: var(--text2);
+        text-decoration: underline;
+        color: var(--text2);
+        transition: color 0.3s;
+
+        &:hover {
+            color: var(--text3);
+        }
     }
 </style>
 
@@ -627,47 +988,63 @@ switch (true) {
         audio.play()
     }
 
-    // Function to update keyboard styles based on localStorage values
-function updateKeyboardStyles() {
-  const keyboard = document.querySelector('arabic-keyboard') as HTMLElement;
-  
-  if (keyboard) {
-    const tile1 = localStorage.getItem('tile1') || getComputedStyle(document.body).getPropertyValue('--tile1');
-    const tile3 = localStorage.getItem('tile3') || getComputedStyle(document.body).getPropertyValue('--tile3');
-    const tile4 = localStorage.getItem('tile4') || getComputedStyle(document.body).getPropertyValue('--tile4');
-    const tile5 = localStorage.getItem('tile5') || getComputedStyle(document.body).getPropertyValue('--tile5');
-    const tile6 = localStorage.getItem('tile6') || getComputedStyle(document.body).getPropertyValue('--tile6');
-    const text1 = localStorage.getItem('text1') || getComputedStyle(document.body).getPropertyValue('--text1');
-    const text3 = localStorage.getItem('text3') || getComputedStyle(document.body).getPropertyValue('--text3');
+    function updateKeyboardStyles() {
+        const keyboards = Array.from(
+            document.querySelectorAll('arabic-keyboard') as NodeListOf<HTMLElement>
+        )
 
-    keyboard.style.setProperty('--button-background-color', tile4);
-    keyboard.style.setProperty('--button-active-background-color', tile5);
-    keyboard.style.setProperty('--button-active-border', `1px solid ${tile6}`);
-    keyboard.style.setProperty('--button-hover-background-color', tile3);
-    keyboard.style.setProperty('--textarea-background-color', tile1);
-    keyboard.style.setProperty('--textarea-input-color', text1);
-    keyboard.style.setProperty('--max-keyboard-width', '900px');
-    keyboard.style.setProperty('--button-color', text1);
-    keyboard.style.setProperty('--button-eng-color', text3);
-    keyboard.style.setProperty('--button-shifted-color', text3);
-  }
-}
+        if (keyboards.length === 0) {
+            return
+        }
 
-// Listen for storage changes in other tabs
-window.addEventListener('local-storage-update', (event) => {
-  console.log('Storage event', event);
-  updateKeyboardStyles();
-});
+        keyboards.forEach((keyboard) => {
+            const tile1 =
+                localStorage.getItem('tile1') ||
+                getComputedStyle(document.body).getPropertyValue('--tile1')
+            const tile3 =
+                localStorage.getItem('tile3') ||
+                getComputedStyle(document.body).getPropertyValue('--tile3')
+            const tile4 =
+                localStorage.getItem('tile4') ||
+                getComputedStyle(document.body).getPropertyValue('--tile4')
+            const tile5 =
+                localStorage.getItem('tile5') ||
+                getComputedStyle(document.body).getPropertyValue('--tile5')
+            const tile6 =
+                localStorage.getItem('tile6') ||
+                getComputedStyle(document.body).getPropertyValue('--tile6')
+            const text1 =
+                localStorage.getItem('text1') ||
+                getComputedStyle(document.body).getPropertyValue('--text1')
+            const text3 =
+                localStorage.getItem('text3') ||
+                getComputedStyle(document.body).getPropertyValue('--text3')
 
-// Example of manually triggering the style update after changing localStorage
-function updateTileColorInLocalStorage(newTile4: string) {
-  localStorage.setItem('tile4', newTile4);
-  updateKeyboardStyles();  // Trigger style update within the same tab
-}
+            keyboard.style.setProperty('--button-background-color', tile4)
+            keyboard.style.setProperty(
+                '--button-active-background-color',
+                tile5
+            )
+            keyboard.style.setProperty(
+                '--button-active-border',
+                `1px solid ${tile6}`
+            )
+            keyboard.style.setProperty('--button-hover-background-color', tile3)
+            keyboard.style.setProperty('--textarea-background-color', tile1)
+            keyboard.style.setProperty('--textarea-input-color', text1)
+            keyboard.style.setProperty('--max-keyboard-width', '900px')
+            keyboard.style.setProperty('--button-color', text1)
+            keyboard.style.setProperty('--button-eng-color', text3)
+            keyboard.style.setProperty('--button-shifted-color', text3)
+        })
+    }
 
-// Initial load of the styles when the page is loaded
-document.addEventListener('DOMContentLoaded', () => {
-  updateKeyboardStyles();
-});
+    window.addEventListener('local-storage-update', (event) => {
+        console.log('Storage event', event)
+        updateKeyboardStyles()
+    })
 
+    document.addEventListener('DOMContentLoaded', () => {
+        updateKeyboardStyles()
+    })
 </script>

@@ -16,6 +16,7 @@ const { title } = Astro.props
         <link rel='preconnect' href='https://fonts.googleapis.com' />
         <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
         <script type="module" src="https://cdn.jsdelivr.net/npm/arabic-virtual-keyboard/+esm"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
         <link
             href='https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap'
             rel='stylesheet'
@@ -140,6 +141,21 @@ const { title } = Astro.props
         --red-dim: hsl(0, 36%, 52%);
         --tile-shadow-dim: var(--brand-hue) 30% 13%;
         --shadow-strength-dim: 0.2;
+        /* dark */
+        --brand-dark: hsl( var(--brand-hue) calc(var(--brand-saturation) / 1.5) calc(var(--brand-lightness) / 1.5));
+  --text1-dark: hsl(var(--brand-hue) 15% 80%);
+  --text2-dark: hsl(var(--brand-hue) 10% 70%);
+  --text3-dark: hsl(var(--brand-hue) 10% 60%);
+  --tile1-dark: hsl(var(--brand-hue) 10% 10%);
+  --tile2-dark: hsl(var(--brand-hue) 10% 15%);
+  --tile3-dark: hsl(var(--brand-hue) 5% 20%);
+  --tile4-dark: hsl(var(--brand-hue) 5% 25%);
+  --tile5-dark: hsl(var(--brand-hue) 10% 30%);
+  --tile6-dark: hsl(var(--brand-hue) 15% 35%);
+  --green-dark: hsl(124 5% 25%);
+  --red-dark: hsl(0, 34%, 46%);
+  --tile-shadow-dark: var(--brand-hue) 50% 3%;
+  --shadow-strength-dark: .8;
     }
 
     :root {
@@ -185,6 +201,24 @@ const { title } = Astro.props
         --tile-shadow: var(--tile-shadow-light);
         --shadow-strength: var(--shadow-strength-light);
     }
+
+
+[color-scheme="dark"] {
+  color-scheme: dark;
+  --brand: var(--brand-dark);
+  --text1: var(--text1-dark);
+  --text2: var(--text2-dark);
+  --text3: var(--text3-dark);
+  --tile1: var(--tile1-dark);
+  --tile2: var(--tile2-dark);
+  --tile3: var(--tile3-dark);
+  --tile4: var(--tile4-dark);
+  --tile5: var(--tile5-dark);
+  --tile6: var(--tile6-dark);
+  --green1: var(--green-dark);
+  --red1: var(--red-dark);
+  --shadow-strength: var(--shadow-strength-dark);
+}
 
     [color-scheme='dim'] {
         color-scheme: dark;

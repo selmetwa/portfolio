@@ -6,6 +6,7 @@ const { description, title } = Astro.props;
   <p class="description">
     {description}
   </p>
+  <slot />
 </header>
 
 <style>
@@ -17,11 +18,11 @@ const { description, title } = Astro.props;
     font-family: var(--font-main);
 
     .title {
-        color: var(--text2);
+        color: var(--text1);
         font-size: 2.5rem;
   }
   .description {
-    color: var(--text3);
+    color: var(--text2);
     font-size: 1.5rem;
   }
   }
