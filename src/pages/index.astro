@@ -4,7 +4,7 @@ import Header from '../components/Header.astro'
 
 ---
 
-<Layout title='Welcome to Astro.'>
+<Layout title='Sherif Elmetwally'>
   <Header
     title='Sherif Elmetwally'
     description='Software engineer specialized in web technologies.'
@@ -200,7 +200,6 @@ import Header from '../components/Header.astro'
 
   details {
     width: 100%;
-    /* min-width: 50rem; */
     position: relative;
     border-radius: 4px;
     background-color: var(--tile3);
@@ -210,8 +209,9 @@ import Header from '../components/Header.astro'
   > p {
     color: var(--text2);
     margin: 4px 0;
-    font-size: 1.125rem;
+    font-size: 1.25rem;
     padding-right: 20px;
+
   }
   
   &::before {
@@ -279,6 +279,17 @@ summary::after {
 li:not(:last-child) {
   margin-bottom: 0.5em;
 }
+
+@media (prefers-color-scheme: dark) {
+  a {
+    color: var(--link);
+  }
+  summary {
+    > a {
+      color: var(--link);
+    }
+  }  
+  }
 </style>
 
 

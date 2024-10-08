@@ -10,13 +10,21 @@ const { title } = Astro.props
 <html lang='en'>
     <head>
         <meta charset='UTF-8' />
-        <meta name='description' content='Astro description' />
+        <meta
+            name='description'
+            content='Personal Website for Sherif Elmetwally'
+        />
         <meta name='viewport' content='width=device-width' />
-        <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+        <!-- <link rel='icon' type='image/svg+xml' href='/favicon.svg' /> -->
         <link rel='preconnect' href='https://fonts.googleapis.com' />
         <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
-        <script type="module" src="https://cdn.jsdelivr.net/npm/arabic-virtual-keyboard/+esm"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script
+            type='module'
+            src='https://cdn.jsdelivr.net/npm/arabic-virtual-keyboard/+esm'
+        ></script>
+        <script
+            src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js'
+        ></script>
         <link
             href='https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap'
             rel='stylesheet'
@@ -142,20 +150,23 @@ const { title } = Astro.props
         --tile-shadow-dim: var(--brand-hue) 30% 13%;
         --shadow-strength-dim: 0.2;
         /* dark */
-        --brand-dark: hsl( var(--brand-hue) calc(var(--brand-saturation) / 1.5) calc(var(--brand-lightness) / 1.5));
-  --text1-dark: hsl(var(--brand-hue) 15% 80%);
-  --text2-dark: hsl(var(--brand-hue) 10% 70%);
-  --text3-dark: hsl(var(--brand-hue) 10% 60%);
-  --tile1-dark: hsl(var(--brand-hue) 10% 10%);
-  --tile2-dark: hsl(var(--brand-hue) 10% 15%);
-  --tile3-dark: hsl(var(--brand-hue) 5% 20%);
-  --tile4-dark: hsl(var(--brand-hue) 5% 25%);
-  --tile5-dark: hsl(var(--brand-hue) 10% 30%);
-  --tile6-dark: hsl(var(--brand-hue) 15% 35%);
-  --green-dark: hsl(124 5% 25%);
-  --red-dark: hsl(0, 34%, 46%);
-  --tile-shadow-dark: var(--brand-hue) 50% 3%;
-  --shadow-strength-dark: .8;
+        --brand-dark: hsl(
+            var(--brand-hue) calc(var(--brand-saturation) / 1.5)
+                calc(var(--brand-lightness) / 1.5)
+        );
+        --text1-dark: hsl(var(--brand-hue) 15% 80%);
+        --text2-dark: hsl(var(--brand-hue) 10% 70%);
+        --text3-dark: hsl(var(--brand-hue) 10% 60%);
+        --tile1-dark: hsl(var(--brand-hue) 10% 10%);
+        --tile2-dark: hsl(var(--brand-hue) 10% 15%);
+        --tile3-dark: hsl(var(--brand-hue) 5% 20%);
+        --tile4-dark: hsl(var(--brand-hue) 5% 25%);
+        --tile5-dark: hsl(var(--brand-hue) 10% 30%);
+        --tile6-dark: hsl(var(--brand-hue) 15% 35%);
+        --green-dark: hsl(124 5% 25%);
+        --red-dark: hsl(0, 34%, 46%);
+        --tile-shadow-dark: var(--brand-hue) 50% 3%;
+        --shadow-strength-dark: 0.8;
     }
 
     :root {
@@ -181,6 +192,7 @@ const { title } = Astro.props
         --size-one: 10px;
         --size-two: 10px;
         --font-main: 'DM Sans', sans-serif;
+        --link: var(--text1);
     }
 
     [color-scheme='light'] {
@@ -196,46 +208,29 @@ const { title } = Astro.props
         --tile4: var(--tile4-light);
         --tile5: var(--tile5-light);
         --tile6: var(--tile6-light);
+        --link: var(--text1);
         --green1: var(--green-light);
         --red1: var(--red-light);
         --tile-shadow: var(--tile-shadow-light);
         --shadow-strength: var(--shadow-strength-light);
     }
 
-
-[color-scheme="dark"] {
-  color-scheme: dark;
-  --brand: var(--brand-dark);
-  --text1: var(--text1-dark);
-  --text2: var(--text2-dark);
-  --text3: var(--text3-dark);
-  --tile1: var(--tile1-dark);
-  --tile2: var(--tile2-dark);
-  --tile3: var(--tile3-dark);
-  --tile4: var(--tile4-dark);
-  --tile5: var(--tile5-dark);
-  --tile6: var(--tile6-dark);
-  --green1: var(--green-dark);
-  --red1: var(--red-dark);
-  --shadow-strength: var(--shadow-strength-dark);
-}
-
-    [color-scheme='dim'] {
+    [color-scheme='dark'] {
         color-scheme: dark;
-        --brand: var(--brand-dim);
-        --text1: var(--text1-dim);
-        --text2: var(--text2-dim);
-        --text3: var(--text3-dim);
-        --tile1: var(--tile1-dim);
-        --tile2: var(--tile2-dim);
-        --tile3: var(--tile3-dim);
-        --tile4: var(--tile4-dim);
-        --tile5: var(--tile5-dim);
-        --tile6: var(--tile6-dim);
-        --green1: var(--green-dim);
-        --red1: var(--red-dim);
-        --tile-shadow: var(--tile-shadow-dim);
-        --shadow-strength: var(--shadow-strength-dim);
+        --brand: var(--brand-dark);
+        --text1: var(--text1-dark);
+        --text2: var(--text2-dark);
+        --text3: var(--text3-dark);
+        --tile1: var(--tile1-dark);
+        --tile2: var(--tile2-dark);
+        --tile3: var(--tile3-dark);
+        --tile4: var(--tile4-dark);
+        --tile5: var(--tile5-dark);
+        --tile6: var(--tile6-dark);
+        --link: var(--brand);
+        --green1: var(--green-dark);
+        --red1: var(--red-dark);
+        --shadow-strength: var(--shadow-strength-dark);
     }
 
     body {
@@ -252,10 +247,10 @@ const { title } = Astro.props
         background-color: var(--tile1);
         background-image: linear-gradient(
                 to right,
-                var(--tile2) 1px,
+                var(--tile3) 1px,
                 transparent 1px
             ),
-            linear-gradient(to bottom, var(--tile2) 1px, transparent 1px);
+        linear-gradient(to bottom, var(--tile3) 1px, transparent 1px);
         background-size: 10px 10px;
         position: relative;
     }
@@ -270,3 +265,96 @@ const { title } = Astro.props
         min-height: 100vh;
     }
 </style>
+
+<script>
+    console.log('Hello! Thank you for visiting my website :)')
+
+    const createFavicon = () => {
+        const a = getComputedStyle(document.documentElement).getPropertyValue(
+            '--brand'
+        )
+
+        const canvas = document.createElement('canvas')
+        canvas.width = 16
+        canvas.height = 16
+        const ctx = canvas.getContext('2d')
+        ctx.fillStyle = a
+        ctx.fillRect(0, 0, 16, 16)
+        const existing = document.querySelector('.favicon')
+
+        const head = document.getElementsByTagName('head')[0]
+        if (existing) {
+            head.removeChild(existing)
+        }
+        var link = document.createElement('link')
+        link.classList.add('favicon')
+        link.type = 'image/x-icon'
+        link.rel = 'shortcut icon'
+        link.href = canvas.toDataURL('image/x-icon')
+        head.appendChild(link)
+    }
+
+    window.addEventListener('local-storage-update', (event) => {
+        console.log('Storage event', event)
+        const colorScheme = localStorage.getItem('color-scheme')
+    if (colorScheme === "light") {
+          const text1 = getComputedStyle(document.documentElement).getPropertyValue(
+            '--text1')
+
+          root.style.setProperty('--link', text1);
+        }
+
+        if (colorScheme === "dark") {
+          const brand = getComputedStyle(document.documentElement).getPropertyValue(
+            '--brand'
+        )
+          root.style.setProperty('--link', brand);
+        }
+        createFavicon()
+    })
+
+    const root = document.documentElement;
+
+    window.addEventListener('color-scheme-update', (event) => {
+        const newColorScheme = event.detail.colorScheme
+
+        if (newColorScheme === "light") {
+          const text1 = getComputedStyle(document.documentElement).getPropertyValue(
+            '--text1')
+
+          root.style.setProperty('--link', text1);
+        }
+
+        if (newColorScheme === "dark") {
+          const brand = getComputedStyle(document.documentElement).getPropertyValue(
+            '--brand'
+        )
+          root.style.setProperty('--link', brand);
+        }
+    })
+
+    if (localStorage.getItem('--brand-hue')) {
+        document.documentElement.style.setProperty(
+            '--brand-hue',
+            localStorage.getItem('--brand-hue')
+        )
+    }
+
+    createFavicon()
+
+    const colorScheme = localStorage.getItem('color-scheme')
+    if (colorScheme === "light") {
+          const text1 = getComputedStyle(document.documentElement).getPropertyValue(
+            '--text1')
+
+          root.style.setProperty('--link', text1);
+        }
+
+        if (colorScheme === "dark") {
+          const brand = getComputedStyle(document.documentElement).getPropertyValue(
+            '--brand'
+        )
+          root.style.setProperty('--link', brand);
+        }
+
+</script>

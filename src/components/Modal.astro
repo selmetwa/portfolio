@@ -172,7 +172,13 @@
         doc.setAttribute('color-scheme', (e.target as HTMLInputElement).value)
 
         const event = new Event('local-storage-update');
+        const event2 = new CustomEvent('color-scheme-update', {
+            detail: {
+                colorScheme: val,
+            },
+        });
         window.dispatchEvent(event);
+        window.dispatchEvent(event2);
     })
     const renderChecked = (scheme) => {
         radioButtons.forEach((button) => {
