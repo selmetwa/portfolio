@@ -404,7 +404,7 @@ direction: rtl;
                 to ones we have already seen. Just with some dots sprinkled on
                 top.
             </p>
-            <ul>
+            <ul class="list-row-wrapper">
                 <li class='list-row'>
                     <button value='seen' class='button letter-button'>
                         <span class='arabic'>س (seen - s)</span>
@@ -855,6 +855,7 @@ npm i arabic-virtual-keyboard
     color: var(--link)!important;
   }
   .list-row-wrapper {
+    padding: 0;
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -927,7 +928,8 @@ npm i arabic-virtual-keyboard
     .grid {
         margin: 24px 0;
         display: grid;
-        gap: 24px;
+        gap: 12px;
+        padding: 0;
         list-style: none;
         grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
     }
