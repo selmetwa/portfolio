@@ -68,19 +68,17 @@ direction: rtl;
             </p>
             <p class='text'>
                 - Beginning of the word: <span lang='ar' class='arabic'
-                    ><span class='highlight'>ب</span>يت
-                </span>(house - byt)
+                    ><span class='highlight'>&#x200D;ب&#x200D;</span>&#x200D;يت
+                    &#x200D;</span>(house - byt)
             </p>
-            <p class='text'>
+            <p class='text' style="dir: rtl;" lang="ar">
                 - Middle of the word: <span lang='ar' class='arabic'
-                    >ح<span class='highlight'>ب</span>ي<span class='highlight'
-                        >ب</span
-                    >ي</span
-                > (my love - habibi)
+                    >&#x200D;ح&#x200D;<span class='highlight'>&#x200D;ب&#x200D;</span>&#x200D;ي&#x200D;<span class='highlight'
+                        >&#x200D;ب&#x200D;</span>&#x200D;ي&#x200D;</span> (my love - habibi)
             </p>
             <p class='text'>
                 - End of the word: <span lang='ar' class='arabic'
-                    >كت<span class='highlight'>ب</span></span
+                    >&#x200D;كت&#x200D;<span class='highlight'>&#x200D;ب&#x200D;</span></span
                 > (write - ktb)
             </p>
             <p class='text'>
@@ -92,6 +90,9 @@ direction: rtl;
             <p class='text'>
                 Luckily the web browser (mostly) handles this for us, so we
                 don't have to worry about it. Thank you UTF-8.
+            </p>
+            <p class="text">Except on Safari where we have to use a Zero-Width Joiner (ZWJ) <code>&#x200D;</code>
+              <a href="http://www.w3c.org.ma/Tests/joiningColoredLetters.html" target="_blank">More on that here</a>
             </p>
             <p class='text'>
                 As an aside look at how the word for (write) <span
@@ -892,7 +893,7 @@ npm i arabic-virtual-keyboard
         margin: 24px 0;
     }
     .highlight {
-        color: var(--link)
+        color: var(--highlight)
     }
 
     .arabic {
