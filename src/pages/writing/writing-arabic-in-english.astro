@@ -9,78 +9,111 @@ import { Code } from 'astro:components'
     <div class='wrapper'>
         <h2>My journey in creating a phonetic Arabic keyboard</h2>
         <p class='text'>
-          A phonetic keyboard is a type of keyboard layout designed to make typing in a particular language easier by mapping characters or letters to sounds rather than their traditional positions on the keyboard.        </p>
-        <p class="text">
-          This makes it
-          easier for beginners or casual users to engage with the language
-          without the learning curve of mastering an entirely different
-          keyboard layout.
+            A phonetic keyboard is a type of keyboard layout designed to make
+            typing in a particular language easier by mapping characters or
+            letters to sounds rather than their traditional positions on the
+            keyboard.
         </p>
         <p class='text'>
-            However there a few problems we have to overcome when creating a phonetic Arabic keyboard.
+            This makes it easier for beginners or casual users to engage with
+            the language without the learning curve of mastering an entirely
+            different keyboard layout.
+        </p>
+        <p class='text'>
+            However there a few problems we have to overcome when creating a
+            phonetic Arabic keyboard.
         </p>
         <ul class='list'>
-          <li><a href="#rtl">Arabic is written from right to left</a></li>
-          <li>
-            <a href="#cursive">Arabic is a cursive script</a>
-          </li>
-          <li>
-            <a href="#mapping">Connecting English letters to sounds in Arabic</a>
-          </li>
-          <li>
-            <a href="#other">Not all Arabic letters have an equivalent in English</a>
-          </li>
-          <li>
-            <a href="#hamza">Arabic has a special character called Hamza</a>
-          </li>
-          <li>
-            <a href="#diacritics">Arabic has diacritics to 
-              provide pronunciation hints
-            </a>
-          </li>
-          <li>
-            <a href="#implementation">Technical details</a>
-          </li>
+            <li><a href='#rtl'>Arabic is written from right to left</a></li>
+            <li>
+                <a href='#cursive'>Arabic is a cursive script</a>
+            </li>
+            <li>
+                <a href='#mapping'
+                    >Connecting English letters to sounds in Arabic</a
+                >
+            </li>
+            <li>
+                <a href='#other'
+                    >Not all Arabic letters have an equivalent in English</a
+                >
+            </li>
+            <li>
+                <a href='#hamza'>Arabic has a special character called Hamza</a>
+            </li>
+            <li>
+                <a href='#diacritics'
+                    >Arabic has diacritics to provide pronunciation hints
+                </a>
+            </li>
+            <li>
+                <a href='#implementation'>Technical details</a>
+            </li>
         </ul>
 
-        <section class='section' id="rtl">
+        <section class='section' id='rtl'>
             <h2>Arabic is written from right to left</h2>
             <p class='text'>
-                This actually wasn't a
-                problem as we could just use our old friend
-<pre>
+                This actually wasn't a problem as we could just use our old
+                friend
+                <pre>
 <code>
 direction: rtl;
 </code>
 </pre>
             </p>
         </section>
-        <section class="section" id="cursive">
+        <section class='section' id='cursive'>
             <h2>Arabic is a cursive script</h2>
             <p class='text'>
-                This means letters are connected to
-                eachother and look different depending on their position in a
-                word.
+                This means letters are connected to eachother and look different
+                depending on their position in a word.
             </p>
             <p class='text'>
                 Lets take the letter <span lang='ar' class='arabic'>ب</span> (baa)
                 for example.
             </p>
-            <p class='text'>
+            <div class='conditional-text'>
+                <p class='text'>
+                    - Beginning of the word: <span lang='ar' class='arabic'
+                        ><span class='highlight'>ب</span>يت
+                    </span>(house - byt)
+                </p>
+                <p class='text' style='dir: rtl;' lang='ar'>
+                    - Middle of the word: <span lang='ar' class='arabic'
+                        >ح<span class='highlight'>ب</span>ي<span
+                            class='highlight'>ب</span
+                        >ي</span
+                    > (my love - habibi)
+                </p>
+                <p class='text'>
+                    - End of the word: <span lang='ar' class='arabic'
+                        >كت<span class='highlight'>ب</span></span
+                    > (write - ktb)
+                </p>
+            </div>
+            <!-- <p class='text'>
                 - Beginning of the word: <span lang='ar' class='arabic'
                     ><span class='highlight'>&#x200D;ب&#x200D;</span>&#x200D;يت
-                    &#x200D;</span>(house - byt)
+                    &#x200D;</span
+                >(house - byt)
             </p>
-            <p class='text' style="dir: rtl;" lang="ar">
+            <p class='text' style='dir: rtl;' lang='ar'>
                 - Middle of the word: <span lang='ar' class='arabic'
-                    >&#x200D;ح&#x200D;<span class='highlight'>&#x200D;ب&#x200D;</span>&#x200D;ي&#x200D;<span class='highlight'
-                        >&#x200D;ب&#x200D;</span>&#x200D;ي&#x200D;</span> (my love - habibi)
+                    >&#x200D;ح&#x200D;<span class='highlight'
+                        >&#x200D;ب&#x200D;</span
+                    >&#x200D;ي&#x200D;<span class='highlight'
+                        >&#x200D;ب&#x200D;</span
+                    >&#x200D;ي&#x200D;</span
+                > (my love - habibi)
             </p>
             <p class='text'>
                 - End of the word: <span lang='ar' class='arabic'
-                    >&#x200D;كت&#x200D;<span class='highlight'>&#x200D;ب&#x200D;</span></span
+                    >&#x200D;كت&#x200D;<span class='highlight'
+                        >&#x200D;ب&#x200D;</span
+                    ></span
                 > (write - ktb)
-            </p>
+            </p> -->
             <p class='text'>
                 - Isolated: <span lang='ar' class='arabic'>
                     كِتَا<span class='highlight'>ب</span></span
@@ -91,8 +124,14 @@ direction: rtl;
                 Luckily the web browser (mostly) handles this for us, so we
                 don't have to worry about it. Thank you UTF-8.
             </p>
-            <p class="text">Except on Safari where we have to use a Zero-Width Joiner (ZWJ) <code>&#x200D;</code>
-              <a href="http://www.w3c.org.ma/Tests/joiningColoredLetters.html" target="_blank">More on that here</a>
+            <p class='text'>
+                Except on Safari where we have to use a Zero-Width Joiner (ZWJ) <code
+                    >&#x200D;</code
+                >
+                <a
+                    href='http://www.w3c.org.ma/Tests/joiningColoredLetters.html'
+                    target='_blank'>More on that here</a
+                >
             </p>
             <p class='text'>
                 As an aside look at how the word for (write) <span
@@ -101,7 +140,8 @@ direction: rtl;
                 > closely resembles the word for (book) <span
                     lang='ar'
                     class='arabic'>كِتَا<span class='highlight'>ب</span></span
-                >. This is because Arabic is a root based language, where the meaning is derived from a root of 3 or 4 letters.
+                >. This is because Arabic is a root based language, where the
+                meaning is derived from a root of 3 or 4 letters.
                 <a
                     href='https://arabicforbeginners.com/topic/arabic-root-system-overview/'
                     target='_blank'
@@ -114,11 +154,12 @@ direction: rtl;
                 that in a bit.
             </p>
         </section>
-        <section class='section' id="mapping">
+        <section class='section' id='mapping'>
             <h2>Mapping English to Arabic</h2>
             <p class='text'>
                 If we want a phonetic keyboard we need to map arabic letters to
-                the english keys in a way that makes sense for someone that is used to typing in english.
+                the english keys in a way that makes sense for someone that is
+                used to typing in english.
             </p>
             <p class='text'>
                 So if someone types the letter <code>b</code>, we want to spit
@@ -225,17 +266,16 @@ direction: rtl;
                 lookup function.
             </p>
         </section>
-        <section class='section' id="other">
+        <section class='section' id='other'>
             <h2>What about the other 11 letters?</h2>
             <p class='text'>
                 I decided to break up these remaining 11 letters into two
                 categories, the first category are the letters that bear some
                 similarity to the simple letters we have already looked at.
             </p>
-            <p class="text">
-              For the sake of this post lets call these <b
-              >"Emphatic"</b
-          > letters, of which there are five.
+            <p class='text'>
+                For the sake of this post lets call these <b>"Emphatic"</b> letters,
+                of which there are five.
             </p>
             <p class='text'>
                 The second category are the letters that don't really bear any
@@ -285,8 +325,10 @@ direction: rtl;
                 To me ح, ص, ض, ط, and ظ are similar-sh to ه, س, د, ت, and ز
                 respectively. Just with a little more umph.
             </p>
-            <p class='text'>What do you think? (Click on the letters for audio)</p>
-            <ul class="list-row-wrapper">
+            <p class='text'>
+                What do you think? (Click on the letters for audio)
+            </p>
+            <ul class='list-row-wrapper'>
                 <li class='list-row'>
                     <button value='haa' class='letter-button'>
                         <span class='arabic'>ح (haa)</span>
@@ -294,7 +336,8 @@ direction: rtl;
                     <p>is a stronger version of</p>
 
                     <button value='ha' class='button letter-button'>
-                        <span class='arabic'>ه (ha)</span> <b>h</b>
+                        <span class='arabic'>ه (ha)</span>
+                        <b>h</b>
                     </button>
                 </li>
                 <li class='list-row'>
@@ -303,7 +346,8 @@ direction: rtl;
                     </button>
                     <p>is a stronger version of</p>
                     <button value='seen' class='button letter-button'>
-                        <span class='arabic'>س (seen) </span> <b>s</b>
+                        <span class='arabic'>س (seen) </span>
+                        <b>s</b>
                     </button>
                 </li>
                 <li class='list-row'>
@@ -312,7 +356,8 @@ direction: rtl;
                     </button>
                     <p>is a stronger version of</p>
                     <button value='dal' class='button letter-button'>
-                        <span class='arabic'>د (dal)</span> <b>d</b>
+                        <span class='arabic'>د (dal)</span>
+                        <b>d</b>
                     </button>
                 </li>
                 <li class='list-row'>
@@ -321,7 +366,8 @@ direction: rtl;
                     </button>
                     <p>is a stronger version of</p>
                     <button value='ta' class='button letter-button'>
-                        <span class='arabic'>ت (ta)</span> <b>t</b>
+                        <span class='arabic'>ت (ta)</span>
+                        <b>t</b>
                     </button>
                 </li>
 
@@ -334,7 +380,8 @@ direction: rtl;
                     </button>
                     <p>is a stronger version of</p>
                     <button value='zay' class='button letter-button'>
-                        <span class='arabic'>ز (zay)</span> <b>z</b>
+                        <span class='arabic'>ز (zay)</span>
+                        <b>z</b>
                     </button>
                 </li>
             </ul>
@@ -405,7 +452,7 @@ direction: rtl;
                 to ones we have already seen. Just with some dots sprinkled on
                 top.
             </p>
-            <ul class="list-row-wrapper">
+            <ul class='list-row-wrapper'>
                 <li class='list-row'>
                     <button value='seen' class='button letter-button'>
                         <span class='arabic'>س (seen - s)</span>
@@ -508,11 +555,12 @@ direction: rtl;
             </p>
             <arabic-keyboard showEnglishValue='true' showShiftedValue='true'
             ></arabic-keyboard>
-            <p class="text">
-              There we go, we are now able to write all 28 arabic letters, but there is still more to be done!
+            <p class='text'>
+                There we go, we are now able to write all 28 arabic letters, but
+                there is still more to be done!
             </p>
         </section>
-        <section class='section' id="hamza">
+        <section class='section' id='hamza'>
             <h2>Hamza <span class='diacritic'>ء</span></h2>
             <p class='text'>
                 Hamza is the unofficial 29th letter of the arabic alphabet. It
@@ -571,7 +619,7 @@ direction: rtl;
                 interesting feature, but a necessary one.
             </p>
         </section>
-        <section class='section' id="diacritics">
+        <section class='section' id='diacritics'>
             <h2>Diacritics</h2>
             <p class='text'>
                 Remember those marks we saw earlier around <span
@@ -579,13 +627,11 @@ direction: rtl;
                 >. The things below the first letter and above the second
                 letter.
             </p>
-            <p class="text">
-              Those are diacritics.
-            </p>
+            <p class='text'>Those are diacritics.</p>
             <p class='text'>
-                Arabic diacritics are marks that placed on or
-                around the letter than can define how the word can be
-                pronounced, therefore how they can be understood.
+                Arabic diacritics are marks that placed on or around the letter
+                than can define how the word can be pronounced, therefore how
+                they can be understood.
             </p>
             <p class='text'>
                 Arabic is a consonant based language, and short vowels are often
@@ -811,34 +857,42 @@ direction: rtl;
                 <br />
                 <code> A--a=na=a ba=Hi=bs= als'ay bi=alla=s=ba=n </code>
             </p>
-            <arabic-keyboard showEnglishValue='true' showShiftedValue='true'></arabic-keyboard>
+            <arabic-keyboard showEnglishValue='true' showShiftedValue='true'
+            ></arabic-keyboard>
 
-            <p class="text">
-              So there we go, we can now write arabic in english, kinda. Is it a good idea? Is it practical? I don't know. But it was fun to work on.
+            <p class='text'>
+                So there we go, we can now write arabic in english, kinda. Is it
+                a good idea? Is it practical? I don't know. But it was fun to
+                work on.
             </p>
         </section>
 
-        <section class="section" id="implementation">
-          <h2>Implementation</h2>
-          <p class="text">
-            The keyboard was built using web components for ease of portability. You can view the  <a href="https://github.com/selmetwa/arabic-virtual-keyboard" target="blank">source code here</a>
-          </p>
-          <p class="text">
-            It can be easily added to any website by adding the following code to your html file.
-<pre>
+        <section class='section' id='implementation'>
+            <h2>Implementation</h2>
+            <p class='text'>
+                The keyboard was built using web components for ease of
+                portability. You can view the <a
+                    href='https://github.com/selmetwa/arabic-virtual-keyboard'
+                    target='blank'>source code here</a
+                >
+            </p>
+            <p class='text'>
+                It can be easily added to any website by adding the following
+                code to your html file.
+                <pre>
 <Code code={`
 <script type="module" src="https://cdn.jsdelivr.net/npm/arabic-virtual-keyboard/+esm"></script>
 <arabic-keyboard></arabic-keyboard>
 `} lang="html">
-</pre>
+</Code>
 
             Or you can install it via npm
 <pre>
 <Code code={`
 npm i arabic-virtual-keyboard
 `} lang="bash">
+</Code>
 </pre>
-</p>
 <p class="text">
   You can read more about the project here
   <a href="https://selmetwa.github.io/arabic-virtual-keyboard-demo/" target="_blank">Documentation</a>
@@ -847,207 +901,285 @@ npm i arabic-virtual-keyboard
   The keyboard is used throughout one of my personal projects. Parallel Arabic-- which is a language learning platform for Egyptian Arabic.
   <a href="https://parallel-arabic.com/about" target="_blank">Check it out here</a>
 </p>
+        </pre>
+            </p>
         </section>
+
+        <style>
+            a {
+                color: var(--link) !important;
+            }
+            .list-row-wrapper {
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+            }
+            li {
+                font-size: 1.25rem;
+                color: var(--text2);
+                transition: color 0.3s;
+
+                &:hover {
+                    color: var(--text3);
+                }
+            }
+            .wrapper {
+                padding: 12px 8px;
+                font-family: var(--font-main);
+                color: var(--text2);
+            }
+
+            .text {
+                padding: 12px 0;
+                font-size: 1.25rem;
+                line-height: 1.5;
+            }
+
+            code {
+                background-color: var(--tile4);
+                color: var(--text1);
+                font-size: 1rem;
+                padding: 8px;
+                text-wrap: wrap;
+            }
+            .section {
+                margin: 24px 0;
+            }
+            .highlight {
+                color: var(--highlight);
+            }
+
+            .arabic {
+                font-size: 2rem;
+            }
+
+            .diacritic {
+                font-size: 5rem;
+            }
+
+            .diacritic-wrapper {
+                padding: 12px;
+                border: 1px solid var(--tile5);
+                background-color: var(--tile4);
+                > h3 {
+                    font-size: 3rem;
+                }
+                .row {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                }
+            }
+
+            h3 {
+                font-size: 2rem;
+                padding: 12px 0 0 0;
+            }
+            .big-diacritic {
+                font-size: 15rem;
+                width: 500px;
+            }
+            .grid {
+                margin: 24px 0;
+                display: grid;
+                gap: 12px;
+                padding: 0;
+                list-style: none;
+                grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+            }
+            .letter-button {
+                white-space: nowrap;
+                background-color: var(--tile3);
+                outline: none;
+                border: none;
+                cursor: pointer;
+                color: var(--text2);
+                transition: background-color 0.3s;
+                &:hover {
+                    background-color: var(--tile4);
+                }
+            }
+
+            .list-row {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                white-space: nowrap;
+                align-items: center;
+                border: 2px dotted var(--tile5);
+            }
+
+            @media screen and (min-width: 768px) {
+                .list-row {
+                    border: none;
+                    flex-direction: row;
+                }
+                .wrapper {
+                    padding: 12px 32px;
+                }
+            }
+            a {
+                text-decoration: underline;
+                color: var(--text2);
+                transition: color 0.3s;
+
+                &:hover {
+                    color: var(--text3);
+                }
+            }
+        </style>
+
+        <script>
+            let showText = false
+            const conditionalTextWrapper =
+                document.querySelector('.conditional-text')
+            const checkUserAgent = () => {
+                if (typeof navigator === 'undefined') {
+                    return
+                }
+
+                const ua = navigator.userAgent
+                const isSafari =
+                    /Safari/.test(ua) && !/Chrome|Chromium/.test(ua)
+                const isMobile =
+                    /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+                        ua
+                    )
+                console.log({ isSafari, isMobile })
+                if (isSafari || isMobile) {
+                    showText = true
+                }
+            }
+
+            checkUserAgent()
+
+            if (showText) {
+                conditionalTextWrapper.innerHTML = `
+            <p class='text' style="padding: 12px 0; font-size: 1.25rem; line-height: 1.5">
+                - Beginning of the word: <span lang='ar' class='arabic' style="font-size: 2rem"
+                    ><span class='highlight' style="color: var(--highlight)">&#x200D;ب&#x200D;</span>&#x200D;يت
+                    &#x200D;</span
+                >(house - byt)
+            </p>
+            <p class='text' style='dir: rtl;' lang='ar' style="padding: 12px 0; font-size: 1.25rem; line-height: 1.5">
+                - Middle of the word: <span lang='ar' class='arabic' style="font-size: 2rem"
+                    >&#x200D;ح&#x200D;<span class='highlight' style="color: var(--highlight)"
+                        >&#x200D;ب&#x200D;</span
+                    >&#x200D;ي&#x200D;<span class='highlight' style="color: var(--highlight)"
+                        >&#x200D;ب&#x200D;</span
+                    >&#x200D;ي&#x200D;</span
+                > (my love - habibi)
+            </p>
+            <p class='text' style="padding: 12px 0; font-size: 1.25rem; line-height: 1.5">
+                - End of the word: <span lang='ar' class='arabic' style="font-size: 2rem"
+                    >&#x200D;كت&#x200D;<span class='highlight' style="color: var(--highlight)"
+                        >&#x200D;ب&#x200D;</span
+                    ></span
+                > (write - ktb)
+            </p>
+              `
+            }
+            console.log('showText', showText)
+
+            const letterButtons = document.querySelectorAll('.letter-button')
+
+            letterButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    const letter = (button as HTMLButtonElement).value
+                    playAudio(letter)
+                })
+            })
+
+            function playAudio(letter: string) {
+                const audio = new Audio(`/letters/audios/${letter}.mp3`)
+                audio.play()
+            }
+
+            function updateKeyboardStyles() {
+                const keyboards = Array.from(
+                    document.querySelectorAll(
+                        'arabic-keyboard'
+                    ) as NodeListOf<HTMLElement>
+                )
+
+                if (keyboards.length === 0) {
+                    return
+                }
+
+                keyboards.forEach((keyboard) => {
+                    const tile1 =
+                        localStorage.getItem('tile1') ||
+                        getComputedStyle(document.body).getPropertyValue(
+                            '--tile1'
+                        )
+                    const tile3 =
+                        localStorage.getItem('tile3') ||
+                        getComputedStyle(document.body).getPropertyValue(
+                            '--tile3'
+                        )
+                    const tile4 =
+                        localStorage.getItem('tile4') ||
+                        getComputedStyle(document.body).getPropertyValue(
+                            '--tile4'
+                        )
+                    const tile5 =
+                        localStorage.getItem('tile5') ||
+                        getComputedStyle(document.body).getPropertyValue(
+                            '--tile5'
+                        )
+                    const tile6 =
+                        localStorage.getItem('tile6') ||
+                        getComputedStyle(document.body).getPropertyValue(
+                            '--tile6'
+                        )
+                    const text1 =
+                        localStorage.getItem('text1') ||
+                        getComputedStyle(document.body).getPropertyValue(
+                            '--text1'
+                        )
+                    const text3 =
+                        localStorage.getItem('text3') ||
+                        getComputedStyle(document.body).getPropertyValue(
+                            '--text3'
+                        )
+
+                    keyboard.style.setProperty(
+                        '--button-background-color',
+                        tile4
+                    )
+                    keyboard.style.setProperty(
+                        '--button-active-background-color',
+                        tile5
+                    )
+                    keyboard.style.setProperty(
+                        '--button-active-border',
+                        `1px solid ${tile6}`
+                    )
+                    keyboard.style.setProperty(
+                        '--button-hover-background-color',
+                        tile3
+                    )
+                    keyboard.style.setProperty(
+                        '--textarea-background-color',
+                        tile1
+                    )
+                    keyboard.style.setProperty('--textarea-input-color', text1)
+                    keyboard.style.setProperty('--max-keyboard-width', '900px')
+                    keyboard.style.setProperty('--button-color', text1)
+                    keyboard.style.setProperty('--button-eng-color', text3)
+                    keyboard.style.setProperty('--button-shifted-color', text3)
+                })
+            }
+
+            window.addEventListener('local-storage-update', (event) => {
+                console.log('Storage event', event)
+                updateKeyboardStyles()
+            })
+
+            document.addEventListener('DOMContentLoaded', () => {
+                updateKeyboardStyles()
+            })
+        </script>
     </div>
 </Layout>
-
-<style>
-  a {
-    color: var(--link)!important;
-  }
-  .list-row-wrapper {
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  li {
-    font-size: 1.25rem;
-    color: var(--text2);
-    transition: color 0.3s;
-
-    &:hover {
-      color: var(--text3);
-    }
-  }
-    .wrapper {
-        padding: 12px 8px;
-        font-family: var(--font-main);
-        color: var(--text2);
-    }
-
-    .text {
-        padding: 12px 0;
-        font-size: 1.25rem;
-        line-height: 1.5;
-    }
-
-    code {
-        background-color: var(--tile4);
-        color: var(--text1);
-        font-size: 1rem;
-        padding: 8px;
-        text-wrap: wrap;
-    }
-    .section {
-        margin: 24px 0;
-    }
-    .highlight {
-        color: var(--highlight)
-    }
-
-    .arabic {
-        font-size: 2rem;
-    }
-
-    .diacritic {
-        font-size: 5rem;
-    }
-
-    .diacritic-wrapper {
-        padding: 12px;
-        border: 1px solid var(--tile5);
-        background-color: var(--tile4);
-        > h3 {
-            font-size: 3rem;
-        }
-        .row {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-        }
-    }
-
-    h3 {
-        font-size: 2rem;
-        padding: 12px 0 0 0;
-    }
-    .big-diacritic {
-        font-size: 15rem;
-        width: 500px;
-    }
-    .grid {
-        margin: 24px 0;
-        display: grid;
-        gap: 12px;
-        padding: 0;
-        list-style: none;
-        grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
-    }
-    .letter-button {
-        white-space: nowrap;
-        background-color: var(--tile3);
-        outline: none;
-        border: none;
-        cursor: pointer;
-        color: var(--text2);
-        transition: background-color 0.3s;
-        &:hover {
-            background-color: var(--tile4);
-        }
-    }
-
-    .list-row {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        white-space: nowrap;
-        align-items: center;
-        border: 2px dotted var(--tile5);
-    }
-
-    @media screen and (min-width: 768px) {
-        .list-row {
-          border: none;
-            flex-direction: row;
-        }
-        .wrapper {
-            padding: 12px 32px;
-        }
-    }
-    a {
-        text-decoration: underline;
-        color: var(--text2);
-        transition: color 0.3s;
-
-        &:hover {
-            color: var(--text3);
-        }
-    }
-</style>
-
-<script>
-    const letterButtons = document.querySelectorAll('.letter-button')
-
-    letterButtons.forEach((button) => {
-        button.addEventListener('click', () => {
-            const letter = (button as HTMLButtonElement).value
-            playAudio(letter)
-        })
-    })
-
-    function playAudio(letter: string) {
-        const audio = new Audio(`/letters/audios/${letter}.mp3`)
-        audio.play()
-    }
-
-    function updateKeyboardStyles() {
-        const keyboards = Array.from(
-            document.querySelectorAll('arabic-keyboard') as NodeListOf<HTMLElement>
-        )
-
-        if (keyboards.length === 0) {
-            return
-        }
-
-        keyboards.forEach((keyboard) => {
-            const tile1 =
-                localStorage.getItem('tile1') ||
-                getComputedStyle(document.body).getPropertyValue('--tile1')
-            const tile3 =
-                localStorage.getItem('tile3') ||
-                getComputedStyle(document.body).getPropertyValue('--tile3')
-            const tile4 =
-                localStorage.getItem('tile4') ||
-                getComputedStyle(document.body).getPropertyValue('--tile4')
-            const tile5 =
-                localStorage.getItem('tile5') ||
-                getComputedStyle(document.body).getPropertyValue('--tile5')
-            const tile6 =
-                localStorage.getItem('tile6') ||
-                getComputedStyle(document.body).getPropertyValue('--tile6')
-            const text1 =
-                localStorage.getItem('text1') ||
-                getComputedStyle(document.body).getPropertyValue('--text1')
-            const text3 =
-                localStorage.getItem('text3') ||
-                getComputedStyle(document.body).getPropertyValue('--text3')
-
-            keyboard.style.setProperty('--button-background-color', tile4)
-            keyboard.style.setProperty(
-                '--button-active-background-color',
-                tile5
-            )
-            keyboard.style.setProperty(
-                '--button-active-border',
-                `1px solid ${tile6}`
-            )
-            keyboard.style.setProperty('--button-hover-background-color', tile3)
-            keyboard.style.setProperty('--textarea-background-color', tile1)
-            keyboard.style.setProperty('--textarea-input-color', text1)
-            keyboard.style.setProperty('--max-keyboard-width', '900px')
-            keyboard.style.setProperty('--button-color', text1)
-            keyboard.style.setProperty('--button-eng-color', text3)
-            keyboard.style.setProperty('--button-shifted-color', text3)
-        })
-    }
-
-    window.addEventListener('local-storage-update', (event) => {
-        console.log('Storage event', event)
-        updateKeyboardStyles()
-    })
-
-    document.addEventListener('DOMContentLoaded', () => {
-        updateKeyboardStyles()
-    })
-</script>
