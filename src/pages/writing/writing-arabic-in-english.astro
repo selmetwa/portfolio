@@ -293,8 +293,7 @@ direction: rtl;
                     <p>is a stronger version of</p>
 
                     <button value='ha' class='button letter-button'>
-                        <span class='arabic'>ه (ha)</span> represented by a lowercase
-                        <b>h</b>
+                        <span class='arabic'>ه (ha)</span> <b>h</b>
                     </button>
                 </li>
                 <li class='list-row'>
@@ -303,8 +302,7 @@ direction: rtl;
                     </button>
                     <p>is a stronger version of</p>
                     <button value='seen' class='button letter-button'>
-                        <span class='arabic'>س (seen) </span>represented by a
-                        lowercase <b>s</b>
+                        <span class='arabic'>س (seen) </span> <b>s</b>
                     </button>
                 </li>
                 <li class='list-row'>
@@ -313,8 +311,7 @@ direction: rtl;
                     </button>
                     <p>is a stronger version of</p>
                     <button value='dal' class='button letter-button'>
-                        <span class='arabic'>د (dal)</span> represented by a lowercase
-                        <b>d</b>
+                        <span class='arabic'>د (dal)</span> <b>d</b>
                     </button>
                 </li>
                 <li class='list-row'>
@@ -323,8 +320,7 @@ direction: rtl;
                     </button>
                     <p>is a stronger version of</p>
                     <button value='ta' class='button letter-button'>
-                        <span class='arabic'>ت (ta)</span> represented by a lowercase
-                        <b>t</b>
+                        <span class='arabic'>ت (ta)</span> <b>t</b>
                     </button>
                 </li>
 
@@ -337,8 +333,7 @@ direction: rtl;
                     </button>
                     <p>is a stronger version of</p>
                     <button value='zay' class='button letter-button'>
-                        <span class='arabic'>ز (zay)</span> represented by a lowercase
-                        <b>z</b>
+                        <span class='arabic'>ز (zay)</span> <b>z</b>
                     </button>
                 </li>
             </ul>
@@ -874,7 +869,7 @@ npm i arabic-virtual-keyboard
     }
   }
     .wrapper {
-        padding: 12px 32px;
+        padding: 12px 8px;
         font-family: var(--font-main);
         color: var(--text2);
     }
@@ -934,7 +929,7 @@ npm i arabic-virtual-keyboard
         display: grid;
         gap: 24px;
         list-style: none;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
     }
     .letter-button {
         white-space: nowrap;
@@ -962,6 +957,9 @@ npm i arabic-virtual-keyboard
         .list-row {
           border: none;
             flex-direction: row;
+        }
+        .wrapper {
+            padding: 12px 32px;
         }
     }
     a {
