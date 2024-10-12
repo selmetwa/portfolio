@@ -8,6 +8,9 @@ import Header from '../../components/Header.astro'
     title='About Me'
     description='Software engineer specialized in web technologies, with a focus on front-end development.'
   >
+    <p class="blurb">
+      You can read more about my professional experience <a href="/experience">here.</a></p>
+    </p>
     <p>In my free time I enjoy</p>
     <ul>
       <li>- Playing, watching, and reading about soccer</li>
@@ -42,7 +45,7 @@ import Header from '../../components/Header.astro'
     }
   }
   p {
-    margin-top: 8px;
+    margin-top: 12px;
     font-size: 1.35rem;
     color: var(--text2);
   }
@@ -67,5 +70,15 @@ import Header from '../../components/Header.astro'
   }
   a:hover {
     text-decoration: underline;
+  }
+
+  .blurb {
+ color: var(--text2);
+    font-family: var(--font-main);
+    font-size: 1.25rem;
+ > a {
+        color: var(--link);
+      text-decoration: underline;
+    }
   }
 </style>

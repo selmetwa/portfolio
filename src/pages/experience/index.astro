@@ -62,6 +62,9 @@ import Header from '../../components/Header.astro'
                         >
                     </li>
                 </ul>
+                <p class="description">
+                  You can read more about the design process here <a href="https://brandorn.com/design/dwell" target="_blank">here</a>
+                </p>
             </section>
         </li>
         <li>
@@ -183,7 +186,9 @@ import Header from '../../components/Header.astro'
                   I was responsible for creating 60+ custom websites for clients using the companies proprietary CMS, along with some custom HTML, CSS, and JavaScript.
                 </p>
             </section>
-          </li>
+          </li>        
+   
+ 
     </ul>
 </Layout>
 
@@ -230,7 +235,7 @@ import Header from '../../components/Header.astro'
         }
 
         > a {
-        color: var(--text2);
+        color: var(--link);
         font-family: var(--font-main);
         font-size: 1.25rem;
     }
@@ -251,10 +256,14 @@ import Header from '../../components/Header.astro'
         gap: 0.25rem;
         > li {
             > a {
-                color: var(--text2);
+                color: var(--link);
                 font-family: var(--font-main);
                 font-size: 1.125rem;
             }
         }
+    }
+
+    a {
+      color: var(--link);
     }
 </style>
