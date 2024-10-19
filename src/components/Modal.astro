@@ -125,7 +125,8 @@
     }
 </style>
 <script>
-    const root = document.documentElement
+    document.addEventListener('astro:page-load', () => {
+      const root = document.documentElement
     const doc = document.firstElementChild
 
     const hueInput = document.querySelector('.brand-hue-input')
@@ -201,4 +202,6 @@
         root.style.setProperty('--brand-hue', hue)
         slider.value = hue
     }
+    });
+
 </script>

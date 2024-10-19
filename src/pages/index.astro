@@ -28,9 +28,6 @@ import Header from '../components/Header.astro'
         <details>
           <summary>Language learning tool for Egyptian Arabic.</summary>
           <p>
-            Fully self-contained learning environment without the need for outside resources.
-          </p>
-          <p>
             Currently has hundreds of monthly users, and a handful of paid subscribers.
           </p>
           <p>
@@ -77,7 +74,7 @@ import Header from '../components/Header.astro'
             Phonetic keyboard for writing Arabic.
           </p>
           <p>
-            Built using Lit Web Components
+            Built using Web Components
           </p>
           <a href="writing/writing-arabic-in-english">Blog post here</a><br>
           <a href="https://github.com/selmetwa/arabic-virtual-keyboard" target="_blank">View on Github</a>
@@ -188,6 +185,10 @@ import Header from '../components/Header.astro'
       > a {
         color: var(--text1);
         font-size: 1.5rem;
+        &:hover {
+          transition: color 0.2s;
+          color: var(--link);
+        }
       }
 
       > p {
@@ -201,11 +202,14 @@ import Header from '../components/Header.astro'
   details {
     width: 100%;
     position: relative;
-    border-radius: 4px;
     background-color: var(--tile3);
-    transition: .2s ease-in-out;
+    outline: 1px solid var(--tile3);
     font-family: var(--font-main);
-
+    transition: .2s ease-in-out;
+    > a {
+      color: var(--link);
+      font-size: 1.25rem;
+    }
   > p {
     color: var(--text2);
     margin: 4px 0;
@@ -231,8 +235,9 @@ import Header from '../components/Header.astro'
   
   &[open] {
     background-color: var(--tile4);
-    outline: 1px dashed var(--tile6);
+    outline: 1px solid var(--link);
     padding: 8px;
+
     &::before {
       opacity: .6;
     }
@@ -246,7 +251,13 @@ summary {
   font-size: 1.25rem;
   cursor: pointer;
   max-width: 85%;
+
+  > a {
+    color: var(--link);
+    font-size: 1.25rem;
 }
+}
+
 summary::before,
   summary::after {
   width: 0.75em;
@@ -269,7 +280,7 @@ summary::after {
 }
 [open] summary::after {
   transform: translateY(-50%) rotate(180deg);
-}
+
   
   &::-webkit-details-marker {
     display: none;
@@ -279,17 +290,6 @@ summary::after {
 li:not(:last-child) {
   margin-bottom: 0.5em;
 }
-
-@media (prefers-color-scheme: dark) {
-  a {
-    color: var(--link);
-  }
-  summary {
-    > a {
-      color: var(--link);
-    }
-  }  
-  }
 </style>
 
 

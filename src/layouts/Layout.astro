@@ -2,6 +2,7 @@
 interface Props {
     title: string
 }
+import { ViewTransitions } from 'astro:transitions'
 import Navigation from '../components/Navigation.astro'
 const { title } = Astro.props
 ---
@@ -15,7 +16,6 @@ const { title } = Astro.props
             content='Personal Website for Sherif Elmetwally'
         />
         <meta name='viewport' content='width=device-width' />
-        <!-- <link rel='icon' type='image/svg+xml' href='/favicon.svg' /> -->
         <link rel='preconnect' href='https://fonts.googleapis.com' />
         <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
         <script
@@ -33,6 +33,7 @@ const { title } = Astro.props
         />
         <meta name='generator' content={Astro.generator} />
         <title>{title}</title>
+        <ViewTransitions />
     </head>
     <body>
         <aside></aside>
@@ -43,6 +44,7 @@ const { title } = Astro.props
         <aside></aside>
     </body>
 </html>
+
 <style is:global>
     /* https://www.joshwcomeau.com/css/custom-css-reset/ */
     /*
@@ -253,12 +255,11 @@ const { title } = Astro.props
                 var(--tile3) 1px,
                 transparent 1px
             ),
-        linear-gradient(to bottom, var(--tile3) 1px, transparent 1px);
+            linear-gradient(to bottom, var(--tile3) 1px, transparent 1px);
         background-size: 10px 10px;
         position: relative;
     }
     main {
-        /* outline: 200px solid var(--tile6); */
         border-left: 1px solid var(--tile6);
         border-right: 1px solid var(--tile6);
         width: min(100%, 1000px);
@@ -269,95 +270,97 @@ const { title } = Astro.props
     }
 </style>
 
-<script>
-    console.log('Hello! Thank you for visiting my website :)')
+<script is:inline>
+    document.addEventListener('astro:page-load', () => {
+        console.log('Hello! Thank you for visiting my website :)')
+        const createFavicon = () => {
+            const a = getComputedStyle(
+                document.documentElement
+            ).getPropertyValue('--brand')
 
-    const createFavicon = () => {
-        const a = getComputedStyle(document.documentElement).getPropertyValue(
-            '--brand'
-        )
+            const canvas = document.createElement('canvas')
+            canvas.width = 16
+            canvas.height = 16
+            const ctx = canvas.getContext('2d')
+            ctx.fillStyle = a
+            ctx.fillRect(0, 0, 16, 16)
+            const existing = document.querySelector('.favicon')
 
-        const canvas = document.createElement('canvas')
-        canvas.width = 16
-        canvas.height = 16
-        const ctx = canvas.getContext('2d')
-        ctx.fillStyle = a
-        ctx.fillRect(0, 0, 16, 16)
-        const existing = document.querySelector('.favicon')
-
-        const head = document.getElementsByTagName('head')[0]
-        if (existing) {
-            head.removeChild(existing)
-        }
-        var link = document.createElement('link')
-        link.classList.add('favicon')
-        link.type = 'image/x-icon'
-        link.rel = 'shortcut icon'
-        link.href = canvas.toDataURL('image/x-icon')
-        head.appendChild(link)
-    }
-
-    window.addEventListener('local-storage-update', (event) => {
-        console.log('Storage event', event)
-        const colorScheme = localStorage.getItem('color-scheme')
-    if (colorScheme === "light") {
-          const text1 = getComputedStyle(document.documentElement).getPropertyValue(
-            '--text1')
-
-          root.style.setProperty('--link', text1);
+            const head = document.getElementsByTagName('head')[0]
+            if (existing) {
+                head.removeChild(existing)
+            }
+            var link = document.createElement('link')
+            link.classList.add('favicon')
+            link.type = 'image/x-icon'
+            link.rel = 'shortcut icon'
+            link.href = canvas.toDataURL('image/x-icon')
+            head.appendChild(link)
         }
 
-        if (colorScheme === "dark") {
-          const brand = getComputedStyle(document.documentElement).getPropertyValue(
-            '--brand'
-        )
-          root.style.setProperty('--link', brand);
+        window.addEventListener('local-storage-update', (event) => {
+            const colorScheme = localStorage.getItem('color-scheme')
+            if (colorScheme === 'light') {
+                const text1 = getComputedStyle(
+                    document.documentElement
+                ).getPropertyValue('--text1')
+
+                root.style.setProperty('--link', text1)
+            }
+
+            if (colorScheme === 'dark') {
+                const brand = getComputedStyle(
+                    document.documentElement
+                ).getPropertyValue('--brand')
+                root.style.setProperty('--link', brand)
+            }
+            createFavicon()
+        })
+
+        const root = document.documentElement
+
+        window.addEventListener('color-scheme-update', (event) => {
+            const newColorScheme = event.detail.colorScheme
+
+            if (newColorScheme === 'light') {
+                const text1 = getComputedStyle(
+                    document.documentElement
+                ).getPropertyValue('--text1')
+
+                root.style.setProperty('--link', text1)
+            }
+
+            if (newColorScheme === 'dark') {
+                const brand = getComputedStyle(
+                    document.documentElement
+                ).getPropertyValue('--brand')
+                root.style.setProperty('--link', brand)
+            }
+        })
+
+        if (localStorage.getItem('--brand-hue')) {
+            document.documentElement.style.setProperty(
+                '--brand-hue',
+                localStorage.getItem('--brand-hue')
+            )
         }
+
         createFavicon()
-    })
 
-    const root = document.documentElement;
+        const colorScheme = localStorage.getItem('color-scheme')
+        if (colorScheme === 'light') {
+            const text1 = getComputedStyle(
+                document.documentElement
+            ).getPropertyValue('--text1')
 
-    window.addEventListener('color-scheme-update', (event) => {
-        const newColorScheme = event.detail.colorScheme
-
-        if (newColorScheme === "light") {
-          const text1 = getComputedStyle(document.documentElement).getPropertyValue(
-            '--text1')
-
-          root.style.setProperty('--link', text1);
+            root.style.setProperty('--link', text1)
         }
 
-        if (newColorScheme === "dark") {
-          const brand = getComputedStyle(document.documentElement).getPropertyValue(
-            '--brand'
-        )
-          root.style.setProperty('--link', brand);
+        if (colorScheme === 'dark') {
+            const brand = getComputedStyle(
+                document.documentElement
+            ).getPropertyValue('--brand')
+            root.style.setProperty('--link', brand)
         }
     })
-
-    if (localStorage.getItem('--brand-hue')) {
-        document.documentElement.style.setProperty(
-            '--brand-hue',
-            localStorage.getItem('--brand-hue')
-        )
-    }
-
-    createFavicon()
-
-    const colorScheme = localStorage.getItem('color-scheme')
-    if (colorScheme === "light") {
-          const text1 = getComputedStyle(document.documentElement).getPropertyValue(
-            '--text1')
-
-          root.style.setProperty('--link', text1);
-        }
-
-        if (colorScheme === "dark") {
-          const brand = getComputedStyle(document.documentElement).getPropertyValue(
-            '--brand'
-        )
-          root.style.setProperty('--link', brand);
-        }
-
 </script>

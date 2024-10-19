@@ -887,21 +887,28 @@ direction: rtl;
 </Code>
 </pre>
 
-            Or you can install it via npm
-<pre>
+                Or you can install it via npm
+                <pre>
 <Code code={`
 npm i arabic-virtual-keyboard
 `} lang="bash">
 </Code>
 </pre>
-<p class="text">
-  You can read more about the project here
-  <a href="https://selmetwa.github.io/arabic-virtual-keyboard-demo/" target="_blank">Documentation</a>
-</p>
-<p class="text">
-  The keyboard is used throughout one of my personal projects. Parallel Arabic-- which is a language learning platform for Egyptian Arabic.
-  <a href="https://parallel-arabic.com/about" target="_blank">Check it out here</a>
-</p>
+                <p class='text'>
+                    You can read more about the project here
+                    <a
+                        href='https://selmetwa.github.io/arabic-virtual-keyboard-demo/'
+                        target='_blank'>Documentation</a
+                    >
+                </p>
+                <p class='text'>
+                    The keyboard is used throughout one of my personal projects.
+                    Parallel Arabic-- which is a language learning platform for
+                    Egyptian Arabic.
+                    <a href='https://parallel-arabic.com/about' target='_blank'
+                        >Check it out here</a
+                    >
+                </p>
             </p>
         </section>
 
@@ -1031,31 +1038,32 @@ npm i arabic-virtual-keyboard
         </style>
 
         <script>
-            let showText = false
-            const conditionalTextWrapper =
-                document.querySelector('.conditional-text')
-            const checkUserAgent = () => {
-                if (typeof navigator === 'undefined') {
-                    return
+            document.addEventListener('astro:page-load', () => {
+              console.log('page loaded')
+                let showText = false
+                const conditionalTextWrapper =
+                    document.querySelector('.conditional-text')
+                const checkUserAgent = () => {
+                    if (typeof navigator === 'undefined') {
+                        return
+                    }
+
+                    const ua = navigator.userAgent
+                    const isSafari =
+                        /Safari/.test(ua) && !/Chrome|Chromium/.test(ua)
+                    const isMobile =
+                        /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+                            ua
+                        )
+                    if (isSafari || isMobile) {
+                        showText = true
+                    }
                 }
 
-                const ua = navigator.userAgent
-                const isSafari =
-                    /Safari/.test(ua) && !/Chrome|Chromium/.test(ua)
-                const isMobile =
-                    /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-                        ua
-                    )
-                console.log({ isSafari, isMobile })
-                if (isSafari || isMobile) {
-                    showText = true
-                }
-            }
+                checkUserAgent()
 
-            checkUserAgent()
-
-            if (showText) {
-                conditionalTextWrapper.innerHTML = `
+                if (showText) {
+                    conditionalTextWrapper.innerHTML = `
             <p class='text' style="padding: 12px 0; font-size: 1.25rem; line-height: 1.5">
                 - Beginning of the word: <span lang='ar' class='arabic' style="font-size: 2rem"
                     ><span class='highlight' style="color: var(--highlight)">&#x200D;ب&#x200D;</span>&#x200D;يت
@@ -1079,106 +1087,117 @@ npm i arabic-virtual-keyboard
                 > (write - ktb)
             </p>
               `
-            }
-            console.log('showText', showText)
-
-            const letterButtons = document.querySelectorAll('.letter-button')
-
-            letterButtons.forEach((button) => {
-                button.addEventListener('click', () => {
-                    const letter = (button as HTMLButtonElement).value
-                    playAudio(letter)
-                })
-            })
-
-            function playAudio(letter: string) {
-                const audio = new Audio(`/letters/audios/${letter}.mp3`)
-                audio.play()
-            }
-
-            function updateKeyboardStyles() {
-                const keyboards = Array.from(
-                    document.querySelectorAll(
-                        'arabic-keyboard'
-                    ) as NodeListOf<HTMLElement>
-                )
-
-                if (keyboards.length === 0) {
-                    return
                 }
 
-                keyboards.forEach((keyboard) => {
-                    const tile1 =
-                        localStorage.getItem('tile1') ||
-                        getComputedStyle(document.body).getPropertyValue(
-                            '--tile1'
-                        )
-                    const tile3 =
-                        localStorage.getItem('tile3') ||
-                        getComputedStyle(document.body).getPropertyValue(
-                            '--tile3'
-                        )
-                    const tile4 =
-                        localStorage.getItem('tile4') ||
-                        getComputedStyle(document.body).getPropertyValue(
-                            '--tile4'
-                        )
-                    const tile5 =
-                        localStorage.getItem('tile5') ||
-                        getComputedStyle(document.body).getPropertyValue(
-                            '--tile5'
-                        )
-                    const tile6 =
-                        localStorage.getItem('tile6') ||
-                        getComputedStyle(document.body).getPropertyValue(
-                            '--tile6'
-                        )
-                    const text1 =
-                        localStorage.getItem('text1') ||
-                        getComputedStyle(document.body).getPropertyValue(
-                            '--text1'
-                        )
-                    const text3 =
-                        localStorage.getItem('text3') ||
-                        getComputedStyle(document.body).getPropertyValue(
-                            '--text3'
-                        )
+                const letterButtons =
+                    document.querySelectorAll('.letter-button')
 
-                    keyboard.style.setProperty(
-                        '--button-background-color',
-                        tile4
-                    )
-                    keyboard.style.setProperty(
-                        '--button-active-background-color',
-                        tile5
-                    )
-                    keyboard.style.setProperty(
-                        '--button-active-border',
-                        `1px solid ${tile6}`
-                    )
-                    keyboard.style.setProperty(
-                        '--button-hover-background-color',
-                        tile3
-                    )
-                    keyboard.style.setProperty(
-                        '--textarea-background-color',
-                        tile1
-                    )
-                    keyboard.style.setProperty('--textarea-input-color', text1)
-                    keyboard.style.setProperty('--max-keyboard-width', '900px')
-                    keyboard.style.setProperty('--button-color', text1)
-                    keyboard.style.setProperty('--button-eng-color', text3)
-                    keyboard.style.setProperty('--button-shifted-color', text3)
+                letterButtons.forEach((button) => {
+                    button.addEventListener('click', () => {
+                        const letter = (button as HTMLButtonElement).value
+                        playAudio(letter)
+                    })
                 })
-            }
 
-            window.addEventListener('local-storage-update', (event) => {
-                console.log('Storage event', event)
-                updateKeyboardStyles()
-            })
+                function playAudio(letter: string) {
+                    const audio = new Audio(`/letters/audios/${letter}.mp3`)
+                    audio.play()
+                }
 
-            document.addEventListener('DOMContentLoaded', () => {
-                updateKeyboardStyles()
+                function updateKeyboardStyles() {
+                  console.log('updating keyboard styles')
+                    const keyboards = Array.from(
+                        document.querySelectorAll(
+                            'arabic-keyboard'
+                        ) as NodeListOf<HTMLElement>
+                    )
+
+                    if (keyboards.length === 0) {
+                        return
+                    }
+
+                    keyboards.forEach((keyboard) => {
+                        const tile1 =
+                            localStorage.getItem('tile1') ||
+                            getComputedStyle(document.body).getPropertyValue(
+                                '--tile1'
+                            )
+                        const tile3 =
+                            localStorage.getItem('tile3') ||
+                            getComputedStyle(document.body).getPropertyValue(
+                                '--tile3'
+                            )
+                        const tile4 =
+                            localStorage.getItem('tile4') ||
+                            getComputedStyle(document.body).getPropertyValue(
+                                '--tile4'
+                            )
+                        const tile5 =
+                            localStorage.getItem('tile5') ||
+                            getComputedStyle(document.body).getPropertyValue(
+                                '--tile5'
+                            )
+                        const tile6 =
+                            localStorage.getItem('tile6') ||
+                            getComputedStyle(document.body).getPropertyValue(
+                                '--tile6'
+                            )
+                        const text1 =
+                            localStorage.getItem('text1') ||
+                            getComputedStyle(document.body).getPropertyValue(
+                                '--text1'
+                            )
+                        const text3 =
+                            localStorage.getItem('text3') ||
+                            getComputedStyle(document.body).getPropertyValue(
+                                '--text3'
+                            )
+
+                        keyboard.style.setProperty(
+                            '--button-background-color',
+                            tile4
+                        )
+                        keyboard.style.setProperty(
+                            '--button-active-background-color',
+                            tile5
+                        )
+                        keyboard.style.setProperty(
+                            '--button-active-border',
+                            `1px solid ${tile6}`
+                        )
+                        keyboard.style.setProperty(
+                            '--button-hover-background-color',
+                            tile3
+                        )
+                        keyboard.style.setProperty(
+                            '--textarea-background-color',
+                            tile1
+                        )
+                        keyboard.style.setProperty(
+                            '--textarea-input-color',
+                            text1
+                        )
+                        keyboard.style.setProperty(
+                            '--max-keyboard-width',
+                            '900px'
+                        )
+                        keyboard.style.setProperty('--button-color', text1)
+                        keyboard.style.setProperty('--button-eng-color', text3)
+                        keyboard.style.setProperty(
+                            '--button-shifted-color',
+                            text3
+                        )
+                    })
+                }
+
+                window.addEventListener('local-storage-update', (event) => {
+                    updateKeyboardStyles()
+                })
+
+
+                setTimeout(() => {
+                  updateKeyboardStyles()
+                }, 100)
             })
         </script>
     </div>
