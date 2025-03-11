@@ -10,6 +10,19 @@ const { title } = Astro.props
 <!doctype html>
 <html lang='en'>
     <head>
+      <script is:inline>
+        // Immediately invoked function to set the theme before page load
+        (function() {
+            const colorScheme = localStorage.getItem('color-scheme') || 'light';
+            document.documentElement.setAttribute('color-scheme', colorScheme);
+            
+            // If there's a stored brand hue, set it immediately
+            const brandHue = localStorage.getItem('--brand-hue');
+            if (brandHue) {
+                document.documentElement.style.setProperty('--brand-hue', brandHue);
+            }
+        })();
+    </script>
         <meta charset='UTF-8' />
         <meta
             name='description'
