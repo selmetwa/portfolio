@@ -133,18 +133,18 @@ const { title } = Astro.props
         --brand-light: hsl(
             var(--brand-hue) var(--brand-saturation) var(--brand-lightness)
         );
-        --text1-light: hsl(var(--brand-hue) 40% 20%);
-        --text2-light: hsl(var(--brand-hue) 35% 35%);
-        --text3-light: hsl(var(--brand-hue) 30% 45%);
-        --tile1-light: hsl(var(--brand-hue) 25% 86%);
-        --tile2-light: hsl(var(--brand-hue) 28% 81%);
-        --tile3-light: hsl(var(--brand-hue) 32% 76%);
-        --tile4-light: hsl(var(--brand-hue) 35% 71%);
-        --tile5-light: hsl(var(--brand-hue) 38% 66%);
-        --tile6-light: hsl(var(--brand-hue) 42% 61%);
-        --green-light: hsl(134, 35%, 42%);
-        --red-light: hsl(0, 50%, 60%);
-        --tile-shadow-light: var(--brand-hue) 20% 25%);
+        --text1-light: hsl(var(--brand-hue) 20% 15%);
+        --text2-light: hsl(var(--brand-hue) 15% 40%);
+        --text3-light: hsl(var(--brand-hue) 12% 50%);
+        --tile1-light: hsl(var(--brand-hue) 15% 92%);
+        --tile2-light: hsl(var(--brand-hue) 18% 87%);
+        --tile3-light: hsl(var(--brand-hue) 20% 82%);
+        --tile4-light: hsl(var(--brand-hue) 22% 77%);
+        --tile5-light: hsl(var(--brand-hue) 25% 72%);
+        --tile6-light: hsl(var(--brand-hue) 28% 67%);
+        --green-light: hsl(134, 25%, 40%);
+        --red-light: hsl(0, 35%, 55%);
+        --tile-shadow-light: var(--brand-hue) 15% 30%);
         --shadow-strength-light: 0.02;
         /* dim */
         --brand-dim: hsl(
@@ -169,18 +169,18 @@ const { title } = Astro.props
             var(--brand-hue) calc(var(--brand-saturation) / 1.5)
                 calc(var(--brand-lightness) / 1.5)
         );
-        --text1-dark: hsl(var(--brand-hue) 30% 80%);
-        --text2-dark: hsl(var(--brand-hue) 25% 70%);
-        --text3-dark: hsl(var(--brand-hue) 20% 60%);
-        --tile1-dark: hsl(var(--brand-hue) 18% 12%);
-        --tile2-dark: hsl(var(--brand-hue) 20% 17%);
-        --tile3-dark: hsl(var(--brand-hue) 22% 22%);
-        --tile4-dark: hsl(var(--brand-hue) 25% 27%);
-        --tile5-dark: hsl(var(--brand-hue) 28% 32%);
-        --tile6-dark: hsl(var(--brand-hue) 32% 37%);
-        --green-dark: hsl(134, 25%, 35%);
-        --red-dark: hsl(0, 40%, 50%);
-        --tile-shadow-dark: var(--brand-hue) 35% 8%;
+        --text1-dark: hsl(var(--brand-hue) 35% 90%);
+        --text2-dark: hsl(var(--brand-hue) 30% 75%);
+        --text3-dark: hsl(var(--brand-hue) 25% 65%);
+        --tile1-dark: hsl(var(--brand-hue) 20% 8%);
+        --tile2-dark: hsl(var(--brand-hue) 22% 12%);
+        --tile3-dark: hsl(var(--brand-hue) 25% 16%);
+        --tile4-dark: hsl(var(--brand-hue) 28% 20%);
+        --tile5-dark: hsl(var(--brand-hue) 32% 24%);
+        --tile6-dark: hsl(var(--brand-hue) 35% 28%);
+        --green-dark: hsl(134, 30%, 45%);
+        --red-dark: hsl(0, 45%, 60%);
+        --tile-shadow-dark: var(--brand-hue) 40% 5%;
         --shadow-strength-dark: 0.8;
     }
 
@@ -264,7 +264,7 @@ const { title } = Astro.props
         height: 100%;
         background-color: var(--tile1);
         background-image: linear-gradient(
-                var(--tile3) 0.5px,
+                var(--tile4) 0.5px,
                 transparent 0.5px,
                 transparent 4px,
                 var(--tile4) 0.5px,
