@@ -8,77 +8,158 @@ import Header from '../../components/Header.astro'
     title='About Me'
     description='Software engineer specialized in web technologies, with a focus on front-end development.'
   >
-    <p class="blurb">
-      You can read more about my professional experience <a href="/experience">here.</a></p>
-    </p>
-    <p>In my free time I enjoy</p>
-    <ul>
-      <li>- Playing, watching, and reading about soccer</li>
-      <li>- Playing chess</li>
-      <li>- Travelling</li>
-      <li>- Studying Arabic</li>
-      <li>- Practicing my Judo</li>
-    </ul>
-</Header>
-  <section class="wrapper">
+    <div class="intro-section">
+      <p class="blurb">
+        You can read more about my professional experience <a href="/experience">here.</a>
+      </p>
+      
+      <div class="interests-section">
+        <h3>In my free time I enjoy</h3>
+        <ul class="interests-list">
+          <li>Playing, watching, and reading about soccer</li>
+          <li>Practicing my Judo</li>
+          <li>Studying Arabic</li>
+          <li>Travelling</li>
+        </ul>
+      </div>
+    </div>
+  </Header>
+  
+  <section class="contact-section">
     <h2>Contact</h2>
-    <p>
-      You can reach me via email at <code>selmetwa@gmail.com</code>
-    </p>
+    <div class="contact-details">
+      <code class="email">selmetwa@gmail.com</code>
+    </div>
   </section>
 </Layout>
 
 <style>
-  .wrapper {
-    padding: 4px 32px 32px;
-    font-family: var(--font-main);
-    > h2 {
-      font-size: 2rem;
-      color: var(--text2);
-      font-weight: 600;
-    }
-
-    > p {
-      margin-top: 8px;
-      font-size: 1.35rem;
-      color: var(--text2);
-    }
+  .intro-section {
+    margin-top: 1.5rem;
+    padding: 0 0 1rem;
   }
-  p {
-    margin-top: 12px;
-    font-size: 1.35rem;
-    color: var(--text2);
-  }
-  ul {
-    list-style-type: none;
-    margin-top: 6px;
-    padding: 0;
-
-    > li {
-      font-size: 1.125rem;
-      color: var(--text2);
-    }
-  }
-  li {
-    margin-bottom: 8px;
-  }
-  a {
-    color: var(--text2);
-    font-family: var(--font-main);
-    text-decoration: none;
-    font-size: 1.5rem;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-
+  
   .blurb {
- color: var(--text2);
+    color: var(--text2);
     font-family: var(--font-main);
-    font-size: 1.25rem;
- > a {
-        color: var(--link);
-      text-decoration: underline;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-weight: 400;
+    
+    > a {
+      color: var(--link);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+      
+      &:hover {
+        text-decoration: underline;
+        color: var(--brand);
+      }
+    }
+  }
+
+  .interests-section {
+    border-top: 1px solid var(--tile5);
+    padding-top: 1.5rem;
+    
+    > h3 {
+      color: var(--text1);
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-family: var(--font-main);
+    }
+  }
+
+  .interests-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.5rem;
+    
+    > li {
+      color: var(--text2);
+      font-size: 1.05rem;
+      font-family: var(--font-main);
+      padding: 0.25rem 0;
+      position: relative;
+      padding-left: 1rem;
+      
+      &::before {
+        content: '–';
+        position: absolute;
+        left: 0;
+        color: var(--text3);
+        font-weight: 500;
+      }
+    }
+  }
+
+  .contact-section {
+    padding: 1rem 32px;
+    background-color: var(--tile2);
+    border: 1px solid var(--tile5);
+    margin: 2rem 32px;
+    
+    > h2 {
+      font-size: 1.8rem;
+      color: var(--text1);
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      font-family: var(--font-main);
+    }
+  }
+
+  .contact-description {
+    font-size: 1.1rem;
+    color: var(--text2);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    font-family: var(--font-main);
+    font-weight: 400;
+  }
+
+  .contact-details {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-label {
+    color: var(--text2);
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: var(--font-main);
+  }
+
+  .email {
+    color: var(--text1);
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+    font-family: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+    background-color: var(--tile4);
+    border: 1px solid var(--tile5);
+    font-weight: 500;
+  }
+
+  @media (max-width: 640px) {
+    .contact-section {
+      margin: 2rem 16px 0;
+      padding: 1.5rem 16px 3rem;
+    }
+    
+    .intro-section {
+      padding: 0 16px 1rem;
+    }
+    
+    .contact-details {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
     }
   }
 </style>
